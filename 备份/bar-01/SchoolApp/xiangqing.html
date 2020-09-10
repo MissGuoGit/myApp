@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	
+	<style type="text/css">
+		.mui-collapse-content{
+			height: 250px;
+		}
+		
+		.information{
+			font-size: 20px;
+			text-indent: 2em;
+			font-family: "微软雅黑";
+			min-height: 50px;
+			line-height: 50px;
+			line-height: 30px;
+			margin-top:8px ;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		
+		.mui-pull-left{
+			color: orange;
+		}
+		#alertBtn{
+			background-color: orange;
+			border: solid 1px orange;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">物品详情</h1>
+		    
+		</header>
+		
+		<div class="mui-content">
+		    		<div class="mui-collapse-content">
+							<div id="slider" class="mui-slider">
+								<div class="mui-slider-group mui-slider-loop">
+									<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										
+											<img src="/images/yuantiao.jpg">
+										</a>
+									</div>
+									<!-- 第一张 -->
+									<div class="mui-slider-item">
+										
+											<img src="images/muwu.jpg">
+										</a>
+									</div>
+									<!-- 第二张 -->
+									<div class="mui-slider-item">
+										
+											<img src="images/muwu.jpg">
+										</a>
+									</div>
+									<!-- 第三张 -->
+									<div class="mui-slider-item">
+										
+											<img src="images/cbd.jpg">
+										</a>
+									</div>
+									<!-- 第四张 -->
+									<div class="mui-slider-item">
+										
+											<img src="images/yuantiao.jpg">
+										</a>
+									</div>
+									<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										
+											<img src="images/yuantiao.jpg">
+										</a>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<!--显示详情-->
+						<div class="information" id="swname">
+							
+						</div>
+						<div class="">
+							
+						</div>
+						<div class="information" id="findplace">
+							
+						</div>
+						<div class="information" id="fintel">
+							
+						</div>
+						<div class="information" id="finqq">
+							
+						</div>
+						<div class="">
+						<button type="button" id="alertBtn" class="mui-btn mui-btn-primary mui-btn-block">联系Ta</button>
+						<div id="info"></div>
+
+						</div>
+		
+		
+		<div class="mui-content">
+		<div class="title">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var info = document.getElementById("info");
+			document.getElementById("alertBtn").addEventListener('tap', function() {
+				mui.alert('', '', function() {
+					 window.location.href='sw.html';
+				});
+			});
+			
+			mui.plusReady(function(){
+				
+			var requrl3=localStorage.getItem("requrl3");	
+			var self = plus.webview.currentWebview();
+			var xqid = self.xqid;
+			mui.ajax(requrl3,{
+				data:{
+					rnum:"18",
+					id:xqid
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				success:function(data){
+					
+					
+					document.getElementById("swname").innerHTML='物品描述：'+data.swdescribe;
+					document.getElementById("findplace").innerHTML='发现地点：'+data.swplace;
+					document.getElementById("fintel").innerHTML='联系人电话：'+data.swtel;
+					document.getElementById("finqq").innerHTML='联系人电话：'+data.swqq;
+					console.log(JSON.stringify(data));
+
+			}
+		});
+		//自定义事件，用于及时刷新页面
+				window.addEventListener('reloadpage',function(event){
+				    location.reload();
+				});
+		
+		});
+		
+		</script>
+	</body>
+
+</html>

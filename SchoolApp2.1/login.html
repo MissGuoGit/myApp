@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			. {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.logo {
+				height: 200px;
+				background-color: white;
+				height: 130px;
+				width: 130px;
+				margin-left: 0px;
+				margin-top: 50px;
+				border-radius: 150px;
+			}
+			
+			.box {
+				height: 40px;
+				width: 250px;
+				margin: 0 auto;
+				margin-top: 10px;
+				padding-left: 5px;
+				font-family: "微软雅黑";
+				font-size: 15px;
+				/*background-color: white;*/
+				border-radius: 8px;
+				/*	border:1px solid #ccc;*/
+				position: relative;
+				line-height: 40px;
+				color: wheat;
+				font-weight: 800;
+			}
+			
+			.box input {
+				position: absolute;
+				right: 10px;
+				height: 38px;
+				width: 170px;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				border-radius: 0px;
+				background-color: inherit;
+				font-weight: 100;
+			}
+			
+			.confirm {
+				text-align: center;
+				padding-top: 5px;
+			}
+			
+			.confirm span {
+				font-family: "微软雅黑";
+			}
+			
+			#buttonbox {
+				width: 250px;
+				margin: 0 auto;
+			}
+			
+			#button {
+				margin-top: 20px;
+				width: 250px;
+				height: 50px;
+				border-radius: 30px;
+				background-color: white;
+				border: none;
+				color: orange;
+			}
+			
+			input::-webkit-input-placeholder {
+				font-size: 14px;
+				text-align: center;
+				color: white;
+			}
+			
+			.mui-content {
+				background-image: linear-gradient(to bottom right, red 35%, orange 65%);
+				height: 100%;
+			}
+			
+			. {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.logo {
+				background-color: white;
+				height: 130px;
+				width: 130px;
+				margin: 0 auto;
+				margin-top: 50px;
+				border-radius: 150px;
+				overflow: hidden;
+			}
+			
+			.logo img {
+				height: 130px;
+				width: 130px;
+			}
+			
+			.box {
+				height: 40px;
+				width: 250px;
+				margin: 0 auto;
+				margin-top: 10px;
+				padding-left: 5px;
+				font-family: "微软雅黑";
+				font-size: 15px;
+				/*background-color: white;*/
+				border-radius: 8px;
+				/*	border:1px solid #ccc;*/
+				position: relative;
+				line-height: 40px;
+				color: wheat;
+				font-weight: 800;
+			}
+			
+			.box input {
+				position: absolute;
+				right: 10px;
+				height: 38px;
+				width: 170px;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				border-radius: 0px;
+				background-color: inherit;
+				font-weight: 100;
+			}
+			
+			.confirm {
+				text-align: center;
+				padding-top: 5px;
+			}
+			
+			.confirm span {
+				font-family: "微软雅黑";
+			}
+			
+			.buttonbox {
+				width: 250px;
+				margin: 0 auto;
+			}
+			
+			.buttonbox input {
+				margin-top: 20px;
+				width: 250px;
+				height: 50px;
+				border-radius: 30px;
+				background-color: white;
+				border: none;
+				color: orange;
+			}
+			
+			input::-webkit-input-placeholder {
+				font-size: 14px;
+				text-align: center;
+				color: white;
+			}
+			
+			.mui-content {
+				background-image: linear-gradient(to bottom right, red 35%, orange 65%);
+				height: 100%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="opacity: 0;">
+			<h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="logo">
+				<img src="img/01.png" />
+			</div>
+
+			<form action="" method="post">
+
+				<div class="box">
+					账号<input type="text" name="usersid" id="usersid" value="" placeholder="请输入账号" />
+				</div>
+
+				<div class="box">
+					密码<input type="password" class="pwd" id="pwd" value="" placeholder="请输入密码" />
+				</div>
+
+				<div class="buttonbox">
+					<input type="button" value="登录" id="button" >
+				</div>
+
+				<div class="buttonbox">
+					<input type="button" value="注册" onclick="window.location='zhuce.html'">
+				</div>
+				<!---->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			//点击登录
+			document.getElementById("button").addEventListener("tap", function() {
+				//获得输入的账户密码
+				var usersid = document.getElementById("usersid").value;
+				console.log(usersid);
+//				var newuser = document.getElementById("newuser").value;
+//				var useremail = document.getElementById("useremail").value;
+				var pwd = document.getElementById("pwd").value;
+				var requrl2=localStorage.getItem("requrl2");
+				//ajax请求
+				mui.ajax(requrl2, {
+					//data封装需要传递的变量与变量值
+					data: {
+						rnum: "16", //登录
+						usersid: usersid,
+						pwd: pwd
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					//数据的处理
+					//注：date封装了后端传递回来的数据
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						var meberid=data.usersid;  //meberid就是用户名账号，为唯一标识
+						var mebnc=data.newuser;
+						var useremail=data.useremail;
+						localStorage.setItem("meberid",meberid);
+						localStorage.setItem("mebnc",mebnc);
+						localStorage.setItem("useremail",useremail);
+//						var meberid=localStorage.getItem("meberid");
+						console.log(meberid);
+						console.log(mebnc);
+						console.log(useremail);
+						if(data.id != null) //判断后台传递来的result变量是否为"yes"
+						{
+							//跳转
+							//							localStorage.setItem("uid", data.uid);
+							mui.openWindow({
+								url: 'index2.html'
+							})
+						} else {
+							//吐司提示
+							mui.toast("用户名或者密码错误!");
+						}
+					}
+				});
+			});
+		</script>
+
+		</script>
+	</body>
+
+</html>

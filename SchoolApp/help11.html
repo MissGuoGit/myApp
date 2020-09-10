@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+		<style type="text/css">
+			@keyframes setcolor1{
+				0%{color: red;}
+				25%{color: gold;}
+				50%{color: blue;}
+				100%{color: red;}
+			}
+			.ddxq{
+				margin: 15px 15px;
+				width: 90%;
+			  
+			}
+			.dd-title{
+				
+				font-size: 23px;
+				text-align: center;
+				animation: setcolor1 3s infinite;
+				animation-timing-function: linear;/*匀速*/
+			}
+			.dd-content{
+				text-indent: 2em;
+				font-size: 20px;
+				margin-top: 15px;
+				/*padding-top: 15px;*/
+			}
+			#dd-content{
+				line-height: 30px;
+			}
+			#dd-time{
+				margin-top: 15px;
+				text-align: right;
+				color: darkolivegreen;
+			}
+			.dd-foot{
+				margin-top: 70px;
+				padding-left: 85px;
+			}
+			.dd-foot div button{
+				width: 80px;
+				background-color: orange;
+				color: white;
+				border: solid 1px orange;
+				box-shadow: 5px 5px 5px #bebebe;
+			}
+			.mui-btn mui-btn{
+				border: solid 1px blue;
+			}
+			.mui-icon-left-nav{			
+			margin-top: 0px;
+			color: white;
+		}
+		.mui-bar-nav {
+			height: 44px;
+			background-color: orange;
+		}
+		.mui-content {
+         background-color: white;   
+        }
+		.mui-title{
+			color: white;
+			line-height: 44px;
+			
+		}	
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		#main-wrapper{
+			height:calc(100% - 45px);
+			width: 100%;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+			background-size:100% 100%;
+			position: absolute;
+			top: 45px;
+			left: 0;
+			overflow-y: scroll;
+		}		
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">任务详情</h1>
+		    
+		</header>
+		<div id="main-wrapper">
+		    <div class="ddxq">
+		    	<div class="dd-title" id="dd-title">
+		    		高数B，十万火急！
+		    	</div>
+		    	<hr />
+		    	<div class="dd-content" id="dd-content">
+		    		找个小哥哥辅导高数，一个月伙食，我包了。江湖救急，速来！
+		    	</div> 
+		    	<div class="dd-time" id="dd-time">
+		    		2019/10/10
+		    	</div>
+		    </div>
+		    <div class="dd-foot" id="dd-foot">
+			    <div>
+	            <button type="button" class="mui-btn mui-btn-blue " id="lxt">联系他/她</button>
+			    <button type="button" class="mui-btn mui-btn-blue " id="btnlq">领取任务</button>
+			    
+			    </div>
+		    </div>
+            <div class="">
+	   
+             </div>
+		</div>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+				var help1 = null;
+				var help4 = null;
+				mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var tasksid = self.tasksid;
+				console.log(tasksid);
+			    var requrl=localStorage.getItem("requrl");	
+				mui.ajax(requrl,{
+					data:{
+						rnum:3,
+                  		tasksid:tasksid
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/x-www-form-urlencoded'},
+					success:function(data){
+						console.log(JSON.stringify(data))
+						document.getElementById("dd-title").innerHTML=data.zhuti;
+						document.getElementById("dd-content").innerHTML=data.neirong;
+						document.getElementById("dd-time").innerHTML=data.shijian;
+//						console.log(JSON.stringify(data));
+						
+					}
+				});
+			});
+			document.getElementById('btnlq').addEventListener('tap',function () {
+				var self = plus.webview.currentWebview();
+				var tasksid = self.tasksid;
+				console.log(tasksid);
+			    var requrl=localStorage.getItem("requrl");	
+				mui.ajax(requrl,{
+					data:{
+						rnum:4,
+                  		tasksid:tasksid
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/x-www-form-urlencoded'},
+					success:function(data){
+						console.log(123);
+						plus.nativeUI.toast('领取成功');
+//						var help1 = plus.webview.getWebviewById('help1');
+//						plus.webview.close(help1);
+//						var help4 = plus.webview.getWebviewById('help4');
+//						plus.webview.close(help4);
+//						mui.openWindow('help1.html','help',{})
+//						console.log(JSON.stringify(data));
+						//返回刷新help4页面
+						if(!help4) {
+							help4 = plus.webview.getWebviewById('help4');
+						}
+						mui.fire(help4, 'reloadpage', {});
+						if(!help1) {
+							help1 = plus.webview.getWebviewById('help1');
+						}
+						mui.fire(help1, 'reloadpage', {});
+						var aa = plus.webview.currentWebview();
+						plus.webview.close(aa);
+//						//返回刷新help1页面
+                         
+						
+//						mui.openWindow('help1.html','help1',{})
+					}
+				});
+			        
+			})
+		
+//			function changecolor(){
+//				var color="red|yellow|#088|yellow";
+//				color=color.split("|");
+//				document.getElementById("dd-title").style.color=color[parseInt(Math.random()*color.length)];
+//			}
+//		  setInterval(function(){
+//		  	changecolor();
+//		  },1000);
+
+       document.querySelector('#lxt').addEventListener('tap',function () {
+                mui.openWindow('im-chat.html','',{});
+       }) 
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>上传图片</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.css"/>
+    <style type="text/css">
+    	.btnselectpic{
+    		width: 120px;
+    		height: 120px;
+    		background-color: #eee;
+    		color: #333;
+    		border: solid 1px #ccc;
+    		margin: 30px auto;
+    		font-size: 72px;
+    		text-align: center;
+    		line-height: 120px;
+    	}
+    	
+    	.selectedpicbox{
+    		width: 350px;
+    		height:200px;
+    		background-color: #eee;
+    		color: #333;
+    		border: solid 1px #ccc;
+    		margin: 10px auto;
+    		text-align: center;
+    		line-height: 120px;
+    		position: relative;
+    	}
+    	.selectedpicbox img{
+    		width:170px;
+    		max-height:170px;
+    		padding:2px;
+    		position: absolute;
+    		left: 2px;
+    		top: 2px;
+    	}
+    	#details{
+    		
+    		margin-top: 10px;
+    		margin-bottom: 5px;
+    	}
+    	.mui-pull-left{
+    		color: orange;
+    	}
+    	#uploadheadImage{
+    		background-color: orange;
+    		border: solid 1px orange;
+    	}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">添加评论</h1>
+	</header>
+	
+	<div class="mui-content">
+		 
+	     
+	     <div class="mui-row mui-content-padded">
+	     	<textarea name="details" id="details" placeholder="请输入评论" rows="8" ></textarea>
+	     </div>
+	    
+	     
+	     
+	      <div class="mui-row mui-content-padded">
+	     	<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="uploadheadImage" >添加评论</button>
+	     </div>
+	</div>
+   
+		    <script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+		    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		    <script type="text/javascript">
+		    	mui.init();
+		    	var topic=null;
+//		    	上传评论
+					mui.plusReady(function(){
+						var self = plus.webview.currentWebview();
+						var listsid1 = self.listsid;
+						document.getElementById("uploadheadImage").addEventListener("tap", function() {
+						var requrl3=localStorage.getItem("requrl3");
+						var aa=document.getElementById("details").value;
+						console.log(aa);
+						mui.ajax(requrl3,{
+							data: {
+								rnum:"11",//请求后端对应的处理
+								details:aa,//上传评论内容
+	                		  	cmmemberid:"52",
+	                		  	cmlikecount:"25",
+	                		  	cmname:"85",
+	                		  	cmheadpicture:"255",
+	                		  	cmttid:listsid1
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+							success: function(data) {
+									console.log("133");
+								mui.toast("添加成功!");
+								if(!topic) {
+								topic = plus.webview.getWebviewById('topic-details');
+							}
+								mui.fire(topic, 'reloadpage', {});
+								var aa = plus.webview.currentWebview();
+								plus.webview.close(aa);
+							}
+						});
+
+				
+			});
+						
+				});
+
+		
+    </script>
+</body>
+</html>
+
+

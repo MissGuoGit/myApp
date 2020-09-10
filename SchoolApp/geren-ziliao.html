@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<style type="text/css">
+			. {
+				padding: 0;
+				margin: 0;
+			}
+			.mui-pull-left{
+				color: orange;
+			}
+			.top {
+				background-color: white;
+				height: 100px;
+				position: relative;
+				border-bottom: solid 1px #ccc;
+			}
+			.touxiang{
+				height: 60px;
+				width: 60px;
+			}
+			.touxiang img {
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				height: 60px;
+				width: 60px;
+			}
+			
+			.name {
+				position: absolute;
+				left: 90px;
+				top: 25px;
+			}
+			
+			.t1 {
+				font-size: 18px;
+				font-family: "微软雅黑";
+			}
+			
+			.t2 {
+				font-size: 15px;
+			}
+			.geren-xinxi p{
+				font-size: 20px;
+				height: 60px;
+				color: #333;
+				line-height: 60px;
+				margin-left: 10px;
+				/*background-color: pink;*/
+				position: relative;
+				border-bottom:solid 1px #CCCCCC;
+			}
+			.geren-xinxi p span{
+				position: absolute;
+				right: 10px;
+				font-size: 18px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人资料</h1>
+
+		</header>
+		<div class="mui-content">
+			
+			<div class="mui-content">
+			<div class="top">
+				<div class="touxiang">
+					<img src="img/touxiang.png" />
+				</div>
+				<div class="name">
+					<p class="t1">邹博伦</p>
+					<p class="t2">账号：zbldsb</p>
+				</div>
+			</div>
+			<div class="geren-xinxi">
+				
+				<p>昵称<span>邹博伦</span></p>
+				<p>签名<span>巨大危害日本人我即勒令发了两份</span></p>
+				<p>年龄<span>75</span></p>
+				<p>性别<span>男</span></p>
+				<p style="min-height: 120px;">爱好：打篮球，场合，输出该圣地亚铝合金附件二帮将会哥</p>
+			
+			</div>
+			
+			
+			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		    //跳转写修改头像
+			 mui(".top").on("tap",".touxiang",function(){		 	
+			 	mui.openWindow({
+			 	url:"geren-touxiang.html",
+		 		id:"geren-touxiang"
+			 	});
+			 });
+			 
+		</script>
+	</body>
+
+</html>

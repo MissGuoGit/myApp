@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link rel="stylesheet" type="text/css" href="css/feedback.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.star{
+				margin-top: 60px;
+			}
+			
+			.pingjiazi{
+				font-size: 23px;
+				margin-top: 2px;
+			}
+			
+			.test{
+				width: 356px;
+				height: 356px;
+			}
+			
+			.dianzantu{
+				background-image: linear-gradient(to bottom right, orange 55%, red 40%);
+				width: 100%;
+				height: 200px;
+			}
+			
+			#zan{
+				width: 150px;
+				height: 150px;
+				margin-left: 120px;
+				margin-top: 30px;
+			}
+			
+			#pingzi{
+				font-size: 20px;
+				font-weight: 800;
+				text-align: center;
+				margin-top: -24px;
+				color: ghostwhite;
+			}
+			
+			#star{
+				margin-top: -35px ;
+				line-height: 30px;
+			}
+			
+			#pjtj{
+				background-color: orange;
+				border: none;
+				height: 40px;
+				line-height: 10px;
+				width: 100px;
+				margin-left: 65%;
+				margin-top: 10px;
+				font-size: 16px;
+				font-weight: 800;
+			}
+			.mui-icon-left-nav{
+				color: orange!important;
+			}
+			.mui-title{
+				color: orange!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!--<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">发送</button>-->
+			<h1 class="mui-title">订单评价</h1>
+		</header>
+		
+		<div class="dianzantu">
+			<img src="img/good.png"/ id="zan">
+			<p id="pingzi">&nbsp;&nbsp;&nbsp;这位大侠表现如何？</p>
+		</div>
+		
+		<div class="mui-content">
+			<div class="mui-content-padded">
+			<div id='image-list' class="row image-list" style="display: none;"></div>
+			<div class="mui-content-padded" id="star">
+				<div class="mui-inline">总体评价</div>
+				<div class="icons mui-inline" style="margin-left: 6px;" id="starbox1">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div><br />
+				<div class="mui-inline">速度评价</div>
+				<div class="icons mui-inline" style="margin-left: 6px;" id="starbox2">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div><br />
+				<div class="mui-inline">态度评价</div>
+				<div class="icons mui-inline" style="margin-left: 6px;" id="starbox3">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+					
+				</div>
+			</div><br />
+			
+			<div id="fankui">
+				<div class="mui-inline">问题和意见</div>
+				<div class="row mui-input-row">
+				<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+			</div>
+			</div>
+			
+			<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="pjtj">提交评价</button>
+			
+		</div>
+			
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/feedback.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var help4=null;
+			var meberid=localStorage.getItem("meberid");
+			console.log(meberid);
+			 
+			//统计某个元素下面选中了星星的个数
+			function getfillcount(el)
+			{
+				var fillcount=0;
+				var items=el.childNodes;
+				for (var i=0;i<items.length;i++) {
+					if(items[i].className=="mui-icon mui-icon-star-filled")
+					{
+						fillcount++;
+					}
+				}
+				return fillcount;
+			}
+			var requrl = localStorage.getItem("requrl");
+			document.getElementById("pjtj").addEventListener('tap',function(){
+				var self = plus.webview.currentWebview();
+				var tasksid = self.tasksid;
+			    var requrl=localStorage.getItem("requrl");	
+				var el1=document.getElementById("starbox1");
+				var el2=document.getElementById("starbox2");
+				var el3=document.getElementById("starbox3");
+				var c1=getfillcount(el1);
+				var c2=getfillcount(el2);
+				var c3=getfillcount(el3);
+				console.log(c1,c2,c3);
+				b=parseInt(Math.random()*3);
+				var jifen=(c1+c2+c3)*2+b;
+				var pingjia = document.getElementById("question").value;
+				
+				if(!pingjia.length > 0) {
+								plus.nativeUI.toast('内容不能为空');
+								document.getElementById("question").focus();
+								return false;
+							}
+//							if(!jifen.length > 0) {
+//								plus.nativeUI.toast('请评价');		
+//								return false;
+//							}
+				mui.ajax(requrl, {							
+							data: {
+								meberid:meberid,
+								tasksid:tasksid,
+								rnum:11,
+								jifen:jifen,
+								pingjia: pingjia
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+						    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+					        success:function(data){
+						    console.log("122");
+							plus.nativeUI.toast('提交成功');
+							if(!help4) {
+								help4 = plus.webview.getWebviewById('help4');
+							}
+							mui.fire(help4, 'reloadpage', {});
+							mui.openWindow('help1.html','help1',{})
+						
+					}	
+							
+				});
+				
+			})
+			
+		</script>
+	</body>
+
+</html>

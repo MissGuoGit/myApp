@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		.paixu p {
+			padding-top: 6px;
+			padding-left: 15px;
+			font-size: 16px;
+			position: relative;
+		}
+		
+		.jfbnc {
+			position: absolute;
+			right: 45px;
+		}
+		.jfbjf{
+			position: absolute;
+			left: 165px;
+		}
+		.jfb{
+			margin-left: 110px;
+		}
+		.mui-table-view-cell {
+			color: #323232;
+			position: relative;
+			left: 0px;
+		}
+		
+		.mui-table-view-cell samp {
+			position: absolute;
+			right: 35px;
+			color: #333333;
+		}
+		.mui-icon-left-nav{			
+			color: white;
+		}
+		.mui-bar-nav {
+			height: 44px;
+			background-color: orange;
+		}
+		.mui-content {
+         background-color: white;   
+        }
+        .mui-title{
+			color: white;
+			line-height: 44px;
+			
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		#main-wrapper{
+			height:calc(100% - 90px);
+			width: 100%;
+			position: absolute;
+			top: 45px;
+			left: 0;
+			overflow-y: scroll;
+		}
+		#lqrw img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+        /*//底部选项卡的字体*/                           
+	   .mui-tab-label{
+	   	display: block; 
+	   	font-size: 12px;	
+	   	color: #CCCCCC;
+	   }
+	   #footer a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+        /*//底部选项卡的图片字体*/                           
+	   .mui-tab-label{
+	   	display: block; 
+	   	font-size: 12px;	
+	   	color: #CCCCCC;
+	   }
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"><b>积分榜</b></h1>
+		</header>
+		<div id="main-wrapper">
+			<div class="paixu">
+				<p>排名<span class="jfb">积分</span><samp class="jfbnc">呢称</samp></p>
+			</div>
+			<ul class="mui-table-view" id="pxbox">
+				<!--<li class="mui-table-view-cell">&nbsp;&nbsp;1<span class="jfbjf">3</span><samp class="jfbnc">测试1</samp></li>
+				<li class="mui-table-view-cell">&nbsp;&nbsp;1<span class="jfbjf">2</span><samp class="jfbnc">测试1</samp></li>-->
+			</ul>
+		</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<a class="mui-tab-item mui-active" id="lqrw">
+				<img src="img/bangyibang1-1.png"/>
+				<span class="mui-tab-label">领取任务</span>
+			</a>
+			<a class="mui-tab-item" id="fbrw">
+				<img src="img/bangyibang2-1.png"/>
+				<span class="mui-tab-label">发布任务</span>
+			</a>
+			<a class="mui-tab-item" id="pxb">
+				<img src="img/bangyibang3-2.png"/>
+				<span class="mui-tab-label">排行榜</span>
+			</a>
+			<a class="mui-tab-item" id="rwzx">
+				<img src="img/bangyibang4-1.png"/>
+				<span class="mui-tab-label">任务中心</span>
+			</a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.ready(function(){
+				var requrl = localStorage.getItem("requrl");
+				mui.ajax(requrl,{
+					data:{
+						rnum:"7"
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					success:function(data){
+						console.log(JSON.stringify(data));
+						var itembox = document.body.querySelector('#pxbox');
+						for(i=0;i<data.length;i++){
+							var itemhtml="<li class='mui-table-view-cell'>&nbsp;&nbsp;"+(i+1)+"<span class='jfbjf'>"+data[i].jifen+"</span><samp class='jfbnc'>"+data[i].necheng+"</samp></li>";						
+								var oldhtml=itembox.innerHTML;
+								var newhtml= oldhtml+itemhtml;
+								itembox.innerHTML=newhtml;
+						}
+					}	
+				});
+			})
+			document.querySelector('#lqrw').addEventListener('tap',function () {
+			      mui.openWindow('help1.html','help1',{})  
+			})
+			document.querySelector('#fbrw').addEventListener('tap',function () {
+			        mui.openWindow('help2.html','help2',{})
+			})
+			document.querySelector('#pxb').addEventListener('tap',function () {
+			      mui.openWindow('help3.html','help3',{})  
+			})
+			document.querySelector('#rwzx').addEventListener('tap',function () {
+			        mui.openWindow('help4.html','help4',{})
+			}) 
+		</script>
+	</body>
+
+</html>

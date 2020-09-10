@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			
+			body,html{
+				width: 100%;
+				height: 100%;
+			}
+			
+			#yunhuotu{
+				width: 100%;
+				height: 200px;
+				background-image: linear-gradient(to bottom right,red 55%,orange 50%);
+			}
+			
+			#dingdanjieshao{
+				
+			}
+			
+			#tb{
+				width: 100%;
+				text-align: left;
+				font-size: 20px;
+				border: solid #d0d0d0;
+			}
+			
+			#tb th{
+				height: 30px;
+			}
+			
+			.xiangmu{
+				margin-left:20px ;
+				width: 60px;
+				white-space: nowrap;
+			}
+			
+			#tishi{
+				width: 260px;
+				height: 80px;
+				margin-top: 70px;
+				margin-left: 60px;
+			}
+			
+			#tishi p{
+				font-size: 20px;
+				font-weight: 800;
+			}
+			
+			.anniu{
+				border-radius: 20px ;
+				width: 180px;
+				margin-left: 100px;
+			}
+			
+			#xiangtu{
+				width: 150px;
+				height: 150px;
+				margin-left: 120px;
+				margin-top: 30px;
+			}
+			
+			#xiangzi{
+				font-size: 20px;
+				font-weight: 800;
+				text-align: center;
+				margin-top: -13px;
+				color: ghostwhite;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">订单详细</h1>
+		</header>
+		
+		<div id="yunhuotu">
+		    	<img src="imgs/bagg.png"/ id="xiangtu">
+		    	<p id="xiangzi">&nbsp;&nbsp;&nbsp;快递正在漂流</p>
+		</div>
+		
+		<div id="dingdanjieshao">
+			<table border="" cellspacing="" cellpadding="" id="tb">
+				<tr><th><div class="xiangmu">取件地址：</div></th><th class="neirong" id="kuaididian"></th></tr>
+				<tr><th><div class="xiangmu">送货地址：</div></th><th class="neirong" id="songhuo"></th></tr>
+				<tr><th><div class="xiangmu">快递类型：</div></th><th class="neirong" id="leixing"></th></tr>
+				<tr><th><div class="xiangmu">发布时间：</div></th><th class="neirong" id="xxtime"></th></tr>
+				
+			</table>
+			<br />
+			<br />
+			
+			<a href="wodedingdan.html"><button type="button" class="mui-btn mui-btn-green mui-btn-block anniu" id="kdqueren">确认完成</button></a>
+			<a href="wodedingdan.html"><button type="button" class="mui-btn mui-btn-red mui-btn-block anniu" id="kdquxiao">取消任务</button></a>
+		</div>
+		
+		<div id="tishi">
+			
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			var requrl=localStorage.getItem("requrl");
+			
+			mui.ready(
+				function huoqu(){
+				mui.ajax(requrl,{
+						data:{
+							rum:"2"
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							if(data.result=="yes"){
+							document.getElementById("kuaididian").innerHTML = data.sjk.dingkuaidi;
+							document.getElementById("songhuo").innerHTML = data.sjk.dingloudong + "/" + data.sjk.dingceng;
+							document.getElementById("leixing").innerHTML = data.sjk.dingzhongxing + "/" + data.sjk.dingdaxing;
+							document.getElementById("xxtime").innerHTML = data.sjk.xxtime
+							}
+							}
+						});
+					})
+			
+			document.getElementById("kdqueren").addEventListener('tap', function() {
+				var btnArray = ['否', '是'];
+				mui.confirm('是否取消订单，确认？', '笑一笑', btnArray, function(e) {
+					if (e.index == 1) {
+						mui.toast('确认完成');
+					} else {
+						mui.toast('取消成功');
+					}
+				})
+			});
+			
+			document.getElementById("kdquxiao").addEventListener('tap', function() {
+				var btnArray = ['否', '是'];
+				mui.confirm('是否取消订单，确认？', '笑一笑', btnArray, function(e) {
+					if (e.index == 1) {
+						mui.toast('取消成功');
+					} else {
+						mui.toast('终止操作');
+					}
+				})
+			});
+			
+			
+			
+			
+		</script>
+		
+		
+	</body>
+
+</html>

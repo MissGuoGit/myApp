@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				width: 100%;
+				height: 100%;
+			}
+			#mainbox{
+				
+				width: 90%;
+				margin: 0 auto;
+				margin-top: 10px;
+			}
+			#back{
+				font-size: 20px;
+				color: #333333;
+				margin-top: 25px;
+			}
+			.header{
+			height: 60px;
+			width: 95%;
+			margin: 0 auto;
+			border-bottom: solid 1px orange;	
+			}
+			.title{
+			 font-size: 25px;
+			 line-height: 35px;
+			}
+			.time{
+				/*background-color: #007AFF;*/
+				height: 50px;
+				line-height:50px;
+				margin-top: 10px;
+				position: relative;
+			}
+			.time img{
+				width: 40px;
+				height: 40px;
+				border-radius:35px ;
+			}
+			.time span{
+				font-size: 15px;
+				position: absolute;
+				left: 50px;
+				top: -3px;
+			}
+			#contains{
+				line-height: 35px;
+				text-indent: 2em;
+			}
+			
+			.contains-img img{
+				width:100%;
+				height: 250px;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<header  class="header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back">返回</a>
+		</header>
+		<div id="mainbox">
+			<div class="title">
+			<span id="xiangqingtitle">唐嫣罕见的款式交换机</span>
+			<div class="time">
+				<img src="img/cbd.jpg"/>
+				<span id="time-wir">作者:zbl  &nbsp;&nbsp; &nbsp; &nbsp;时间：2019/1/1</span>
+			</div>
+			
+			</div>
+			<div id="contains">
+			积分兑换健康和空间啊哈据了解卡疯狂夺金OA吉林省非主流，你看见瓯都市几号啊玩具卡那就好啦	
+			积分兑换健康和空间啊哈据了解卡疯狂夺金OA吉林省非主流，你看见瓯都市几号啊玩具卡那就好啦	
+			
+			</div>
+			<div class="contains-img">
+				<img src="img/blue3.jpg" id="xiangqingimg"/>
+			</div>
+		</div>
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var newsid = self.newsid;
+				console.log(newsid);
+			    var requrl4=localStorage.getItem("requrl4");
+				var requrl2=localStorage.getItem("requrl2");	
+				mui.ajax(requrl2,{
+					data:{
+						rnum:"14",
+                  		id:newsid //请求后端相对应的newsid 找到对应的数据
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/x-www-form-urlencoded'},
+					success:function(data){
+						console.log(JSON.stringify(data));
+						document.getElementById("xiangqingtitle").innerHTML=data.NewsTittle;
+						document.getElementById("time-wir").innerHTML="作者:"+data.NewsAuthor+"&nbsp;&nbsp; &nbsp; &nbsp;时间："+data.NewsTime;
+						document.getElementById("contains").innerHTML=data.NewsContains;
+						document.getElementById("xiangqingimg").src=requrl4+data.imgurl;
+						
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+		
+		<style type="text/css">
+
+		/*.mui-card-header{
+			height: 30px;
+		}*/
+		.dynamic-content{
+			min-height: 25px;
+			text-indent: 2em;
+			font-size: 15px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			margin-left: 15px;
+			margin-right: 15px;
+			letter-spacing: 1px;
+			
+		}
+		
+		.dynamic-picture img{
+			width: 250px;
+			height: 160px;
+			margin-left: calc((100% - 250px) / 2);
+		}
+		
+		.mui-card-media img{
+			border-radius: 15px;
+			border: solid 1px #eee;
+			
+		}
+			/*爱心*/
+        .heart { background: url(images/heart_animation.png);
+            	 background-position: left; 
+            	 background-repeat: no-repeat; 
+            	 height: 75px; width: 75px; 
+            	 cursor: pointer;/* position: absolute; left: -14px;*/ 
+            	 background-size: 2900%;
+            	 margin-left: -5px;
+            	  }
+
+ 		.heart:hover, .heart:focus { background-position: right; }
+
+		 @-webkit-keyframes heartBlast { 
+		  0% {
+		
+		 background-position: left;
+		
+		}
+		
+		 100% {
+		
+		 background-position: right;
+		
+		}
+		
+		}
+		
+		 @keyframes heartBlast {  
+		 	0% {
+		
+		 background-position: left;
+		
+		}
+		
+		 100% {
+		
+		 background-position: right;
+		
+		}
+		
+		}
+
+		.heartAnimation { display: inline-block; 
+		-webkit-animation-name: heartBlast;
+		 animation-name: heartBlast; 
+		-webkit-animation-duration: .5s;
+		animation-duration: .5s; 
+		-webkit-animation-iteration-count: 1;
+		animation-iteration-count: 1; 
+		-webkit-animation-timing-function: steps(28);
+		animation-timing-function: steps(28); 
+		background-position: right; 
+		}	
+		.comment{
+			height: 75px;
+			width: 55px;
+		}
+		.comment img{
+			height: 23px;
+			width: 25px;
+		}
+		
+		.mui-bar-nav span{
+			display: block;
+			float: left;
+			height: 40px;
+		}
+		.return{
+			width: 15%;
+			
+		}
+		.mui-pull-left{
+			color: orange;
+		}
+		.title{
+			width: 70%;
+			text-align: center;
+			line-height: 40px;
+			font-size: 18px;
+			margin-top: 3px;
+			
+		}
+		.add-topic{
+			width: 15%;
+		}	
+		.add-topic img{
+			height: 28px;
+			margin-left: 20px;
+			margin-top: 8px;
+		}
+		/*底部选项卡的图片*/
+        /*#tabbox a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }*/
+		/*底部选项卡的字体*/
+		   /*.mui-tab-label{
+		   	display: block; 
+		   	font-size: 12px;	
+		   	color: #CCCCCC;
+		   }
+	*/
+		
+			 
+		</style>
+		
+	</head>
+	<body>
+	<header class="mui-bar mui-bar-nav">
+	   <span class="return">
+	   	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	   </span> 
+	    <span class="title">好友动态</span> 
+	    <span class="add-topic" id="addtt">
+	    	<img src="images/xinzeng (1).png"/>
+	    </span>
+		</header>
+	
+	
+	  
+		
+	<div class="mui-content" id="commentsbox">
+		
+			
+	</div>
+	
+	
+
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			//底部切换
+			 mui(".page-bottom").on("tap",".footer-table",function(){
+			 	var that=this;
+			 	var tempurl=that.href;
+			 	mui.openWindow({
+			 		url:tempurl
+			 	});
+			 });
+			  
+			 mui(".mui-bar-nav").on("tap",".add-topic",function(){
+			 	mui.openWindow({
+			 		url:"publish-topic.html"
+//			 		id:"publish-topic"
+			 	});
+			 });
+			 
+            //爱心点赞
+			$(document).ready(function()
+
+				{
+				$('body').on("click",'.heart',function()
+				{
+				
+				var A=$(this).attr("id");
+				
+				var B=A.split("like");
+				
+				var messageID=B[1];
+				
+				var C=parseInt($("#likeCount"+messageID).html());
+				
+				$(this).css("background-position","")
+				
+				var D=$(this).attr("rel");
+				
+				if(D === 'like') 
+				
+				{      
+				
+				$("#likeCount"+messageID).html(C+1);
+				
+				$(this).addClass("heartAnimation").attr("rel","unlike");
+				
+				}
+				
+				else
+				
+				{
+				
+				$("#likeCount"+messageID).html(C-1);
+				
+				$(this).removeClass("heartAnimation").attr("rel","like");
+				
+				$(this).css("background-position","left");
+				
+				}
+				
+				});
+				
+				});
+
+			
+			// 显示内容
+			mui.ready(function(){
+			var requrl3=localStorage.getItem("requrl3");
+			var requrl4=localStorage.getItem("requrl4");
+			console.log(requrl3);
+			console.log(requrl4);
+			mui.ajax(requrl3,{
+				data:{
+					rnum:"13",
+					p:1	
+					
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				success:function(data){
+					
+					console.log(JSON.stringify(data));//打印输出获取到的json格式的数据
+					var itembox =document.getElementById("commentsbox");
+					for(var i=0;i<data.itemlist.length;i++){
+					
+								var div=document.createElement('div');
+								div.className ='mui-card';
+								//头像字段未上传现在用的是动态图的字段
+								var divhtml="<div class='mui-card-header mui-card-media'><img src='"+requrl4+data.itemlist[i].ttdymaicpicture+"'/>";
+		            			divhtml+="<div class='mui-media-body'>"+data.itemlist[i].ttname;
+		                		divhtml+="<p>发表于"+data.itemlist[i].tttime+"</p>";
+		                		divhtml+="</div>";
+		                		divhtml+="</div>";
+		                		divhtml+="<div class='mui-card-content' ><div class='dynamic-content'>"+data.itemlist[i].ttcontent+"</div>";
+		                		divhtml+="<div class='dynamic-picture'><img src='"+requrl4+data.itemlist[i].ttdymaicpicture+"'/></div>";
+		                		divhtml+="<div class='mui-card-footer'><div class='heart' id='like1' rel='like' style='height: 30px;line-height: 30px;'></div>";
+		                		divhtml+="<div class='pinglun'>";
+		                		divhtml+="<a class='mui-card-link comment'  data-id="+data.itemlist[i].id+">";
+		                		divhtml+="<img src='images/xiepinglun.png'/>";
+		                		divhtml+="</a></div></div></div>";
+		                		
+		                		div.innerHTML=divhtml;
+//		                		div.id=data.itemlist[i].id;
+		                		console.log(div.id);
+		                		itembox.appendChild(div);//新纪录插到最前面
+		                	
+					}	
+			}
+		});
+			mui("#commentsbox").on("tap",".comment",function(){
+					var currentid=this.getAttribute("data-id");
+//					console.log(currentid);
+					mui.openWindow({
+				    	url:"topic-details.html",
+				    	id:"topic-details",
+				    	extras:{
+						   pllid:currentid
+						}
+					});
+					
+			});
+			
+		//自定义事件，用于及时刷新页面
+				window.addEventListener('reloadpage',function(event){
+				    location.reload();
+				});
+				
+				
+		});
+		</script>
+	</body>
+
+</html>

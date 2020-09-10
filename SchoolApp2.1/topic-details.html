@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/mui.css"/>
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+		<style type="text/css">
+			body{
+				width: 100%;
+				height: 100%;
+				
+			}
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			
+			/*头部样式*/
+			/*.head-topic{
+				width: 100%;
+				height: 80px;
+				font-size: 20px;
+				line-height: 80px;
+				text-align: center;
+				background-color: gold;
+				position: fixed;
+				top: 0px;
+				
+			}*/
+			
+			ul li{
+				list-style: none;
+				border-bottom: solid 1px #CCCCCC;
+				
+			}
+			.comment-juti{
+				min-height: 120px;
+				
+				
+			}
+			.head-images img{
+				height: 50px;
+				width: 50px;
+				border-radius: 20px;
+				margin-left: 10px;
+				margin-top: 5px;
+			}
+			
+			.head{
+				float: left;
+			
+			}
+			.left img{
+				margin-top: 10px;
+				border-radius: 30px;
+				width: 35px;
+				height: 35px;
+			}
+			
+			.right{
+				margin-left: 10px;
+				width: 150px;
+		
+			}
+			p{
+				margin-bottom: 0;
+			}
+			.right-name{
+				margin-top: 10px;
+				font-size: 16px;
+				height: 20px;
+				line-height: 20px;
+				color: #000000;
+			}
+			.right-time{
+				
+				height: 20px;
+				line-height: 20px;
+				font-size: 13px;
+				
+			}
+			.comment-imformation{
+				width: calc(100% - 40px);
+				min-height: 20px;
+				text-indent: 2em;
+				padding-left: 20px;
+				padding-top: 8px;
+				
+			}
+			.like-comment{
+				height: 45px;
+				width: 100%;
+				
+			}
+			.like{
+				float: left;
+			}
+			.count{
+				
+				width: 60%;
+				/*background-color: gold;*/
+				height: 45px;
+				line-height: 45px;
+				font-size: 16px;
+				margin-left: 50px;
+				color: #808080;
+			}
+			/*#write-comment{
+				width: 100%;
+				height: 40px;
+				background-color: gold;
+				line-height: 40px;
+				text-align: center;
+				font-size: 16px;
+				position: fixed;
+				bottom: 0px;
+				display: block;
+				
+			}*/
+			
+			/*爱心*/
+        .heart { background: url(images/heart_animation.png);
+            	 background-position: left; 
+            	 background-repeat: no-repeat; 
+            	 height: 90px; width: 90px; 
+            	 cursor: pointer;/* position: absolute; left: -14px;*/ 
+            	 background-size: 2900%;
+            	
+            	
+            	  }
+
+		.heart:hover, .heart:focus { background-position: right; }
+
+		 @-webkit-keyframes heartBlast { 
+		  0% {
+		
+		 background-position: left;
+		
+		}
+		
+		 100% {
+		
+		 background-position: right;
+		
+		}
+		
+		}
+		
+		 @keyframes heartBlast {  
+		 	0% {
+		
+		 background-position: left;
+		
+		}
+		
+		 100% {
+		
+		 background-position: right;
+		
+		}
+		
+		}
+
+		.heartAnimation { display: inline-block; 
+				-webkit-animation-name: heartBlast;
+				 animation-name: heartBlast; 
+				 -webkit-animation-duration: .5s; 
+				 animation-duration: .5s; 
+				 -webkit-animation-iteration-count: 1; 
+				 animation-iteration-count: 1; 
+				 -webkit-animation-timing-function: steps(28); 
+				 animation-timing-function: steps(28); 
+				 background-position: right; 
+				 }
+				 /*.write{
+				 	height: 28px;
+				    
+				 	font-size: 16px;
+				 	margin-top: 3px;
+				 	margin-left: 10px;
+				 }*/
+				 .send-comment{
+				 width: 150px;
+				 height: 35px;
+				 line-height: 35px;
+				 margin-top: 3px;
+				 font-size: 18px;
+				
+				 }
+				
+		.mui-bar-nav span{
+			display: block;
+			float: left;
+			height: 40px;
+		}
+		.return{
+			width: 15%;
+			
+		}
+		.mui-pull-left{
+			color: orange;
+		}
+		.title{
+			width: 70%;
+			text-align: center;
+			line-height: 40px;
+			font-size: 18px;
+			margin-top: 3px;
+		}
+		.add-topic{
+			width: 15%;
+			
+		}	
+		.add-topic img{
+			height: 28px;
+			margin-left: 20px;
+			margin-top: 8px;
+		}
+		.mui-content{
+			margin-bottom: 5px;
+		} 
+		</style>
+	</head>
+	<body>
+		<!--<div class="head-topic">
+			#少年的你票房大卖#
+		</div>-->
+		
+		<!--<div id="write-comment">-->
+			
+			<!--<input type="text" name="" id="" value="" placeholder="写评论" class="write" />-->
+			<!--<input type="button" name="" id="" value="写评论" class="send-comment"/>-->
+	
+			
+		<!--</div>-->
+		<!--<div style="clear:both;"></div>-->
+		
+		<header class="mui-bar mui-bar-nav">
+	   <span class="return">
+	   	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	   </span> 
+	    <span class="title">评论</span> 
+	    <span class="add-topic" id="addtt">
+	    	<img src="images/xinzeng (1).png"/>
+	    </span>
+		</header>
+		
+		
+		<!--<header class="mui-bar mui-bar-nav">
+	   <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <span class="title">评论</span>
+	 	
+	   
+		</header>-->
+	
+		<!--话题评论-->
+			<div class="mui-content">
+				<ul class="comments"  id="commentsbox">			
+					<!--<li class="comment-juti">
+				<div class="head-images">
+					<div class="head left">
+						
+						<img src="images/shuijiao.jpg"/> 
+					</div>
+					
+					<div class="head right">
+						<p class="right-name">小乖乖</p>
+						<p class="right-time">2019年10月29日</p>					
+					</div>
+				</div>
+				
+				<div style="clear: both;"></div>
+				<div class="comment-imformation">
+					能和心能和心爱的人一呼噜怎么办？
+					能和心能和心爱的人一呼噜怎么办？
+					能和心能和心爱的人一呼噜怎么办？
+				</div>
+			
+				<div class="like-comment">
+					<div class="like count">
+					     <span class="numbox">0</span>人觉得赞！
+					</div>
+					 <div name="heartbox" class="like heart" id="like1" rel="like" style="height: 45px;line-height: 45px;"></div>
+				</div>
+			</li>		-->
+		</ul>
+			
+		</div>
+		
+			
+		
+		
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			
+			
+			
+			//爱心点赞
+			$(document).ready(function()
+			{
+				$('body').on("click",'.heart',function()
+				{
+				
+				var A=$(this).attr("id");
+				
+				var B=A.split("like");
+				
+				var messageID=B[1];
+				
+				var C=parseInt($("#likeCount"+messageID).html());
+				
+				$(this).css("background-position","")
+				
+				var D=$(this).attr("rel");
+				
+				if(D === 'like') 
+				
+				{      
+				
+				var  oldstr=$("#likeCount"+messageID).html(C+1);
+				
+				  //oldstr=oldstr+"ss";
+				$(this).addClass("heartAnimation").attr("rel","unlike");
+				
+				}
+				
+				else
+				
+				{
+				
+				$("#likeCount"+messageID).html(C-1);
+				
+				$(this).removeClass("heartAnimation").attr("rel","like");
+				
+				$(this).css("background-position","left");
+				
+				}
+				
+				});
+				
+		});
+
+     		$("div[name='heartbox']").click(function(){
+      		var num=$(this).prev().find("span").text();
+      		num=parseInt(num);
+      		if($(this).prev().find("span").attr("haszan")=="1")
+      		{
+      			num--;
+      			$(this).prev().find("span").text(num).attr("haszan","");
+      		}
+      		else
+      		{
+      			num++;
+      			$(this).prev().find("span").text(num).attr("haszan","1");
+      		}
+      });
+		
+		    mui.plusReady(function(){
+			
+			var self = plus.webview.currentWebview();
+			var listsid = self.pllid;
+			var requrl4=localStorage.getItem("requrl4");
+			var requrl3=localStorage.getItem("requrl3");
+			console.log(listsid);
+			
+			mui.ajax(requrl3,{
+				data:{
+					rnum:"12",
+					p:1,
+					cmttid:listsid
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				success:function(data){
+					
+					console.log(JSON.stringify(data));//打印输出获取到的json格式的数据
+					var itembox =document.getElementById("commentsbox");
+					
+					for(var i=0;i<data.length;i++){
+						
+						var li= document.createElement('li');
+						li.className ='comment-juti';
+						var lihtml="<div class='head-images'><div class='head left'>";
+		            			lihtml+="<div class='head left'><img src='"+requrl4+data[i].cmheadpicture+"'/></div>";
+		                		lihtml+="<div class='head right'>";
+		                		lihtml+="<p class='right-name'>"+data[i].cmname+"</p>";
+		                    	lihtml+="<p class='right-time'>"+data[i].cmtime+"</p>";
+		                    	lihtml+="</div>";
+		                    	lihtml+="</div>";
+		                    	lihtml+="<div style='clear: both;'></div>";
+		             	
+		                    	lihtml+="<div class='comment-imformation'>"+data[i].cmdetail+"</div>";//评论内容是在comment表中
+		                    	lihtml+="<div class='like-comment'><div class='like count'>";
+		                    	lihtml+="<span class='numbox'>"+data[i].cmlikecount+"</span>人觉得赞！</div>";
+		                    	lihtml+="<div name='heartbox' class='like heart' id='like1' rel='like' style='height: 45px;line-height: 45px;'></div></div></li>";
+		              
+		              
+		             			li.innerHTML =lihtml;
+//		                    	li.id=data.id;
+								itembox.insertBefore(li,itembox.firstChild);//新纪录插到最前面；									
+					}
+							
+                          
+			}
+		});
+		
+			//页面刷新事件
+			window.addEventListener('reloadpage', function(event) {
+				location.reload();
+			});
+				
+				//跳转写评论
+			 mui(".mui-bar-nav").on("tap","#addtt",function(){		 	
+			 	mui.openWindow({
+			 	url:"add-comment.html",
+		 		id:"add-comment",
+				extras:{
+			   		listsid:listsid
+				}
+
+			 	});
+			 });
+				
+		
+		});
+		
+		
+		
+		
+		</script>
+	</body>
+</html>

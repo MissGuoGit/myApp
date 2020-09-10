@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+	* {
+			padding: 0;
+			margin: 0;
+		}
+		
+		.title {
+			height: 210px;
+			width: 100;
+			background-image: url(img/top.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		
+		.work {
+			height: 210px;
+			width: 100;
+			background-color: white;
+			border-radius: 13px;
+			position: relative;
+			margin-top: 20px;
+		}
+		
+		.recommend {
+			height: 250px;
+			margin-top: 20px;
+			background-color: white;
+			border-radius: 13px;
+			position: relative;
+		}
+		
+		.function {
+			background-color: wheat;
+			height: 70px;
+			width: 70px;
+			margin-left: 15%;
+			margin-top: 10px;
+			position: relative;
+			border-radius: 10px;
+		}
+		
+		.function-right {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			right: 10px;
+			top: 10px;
+		}
+		
+		.function-right2 {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			right: 10px;
+			bottom: 30px;
+		}
+		
+		.function-mid {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			top: 10px;
+			left: 40%;
+		}
+		
+		.function-mid2 {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			bottom: 30px;
+			position: absolute;
+			left: 40%;
+			bottom: 30px;
+		}
+		
+		.function-left {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			position: relative;
+			top: 10px;
+			left: -15px;
+		}
+		
+		.function-left2 {
+			background-color: wheat;
+			border-radius: 10px;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			bottom: 30px;
+			left: -15px;
+		}
+		
+		.function span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-right span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-right2 span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-mid span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-mid2 span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-left span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.function-left2 span {
+			position: absolute;
+			bottom: -25px;
+			left: 11px;
+			font-family: "微软雅黑";
+			font-size: 15px;
+		}
+		
+		.characters {
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			margin-top: 20px;
+		}
+		
+		.characters span {
+			font-family: "微软雅黑";
+			font-size: 20px;
+			font-weight: 900;
+		}
+		
+		.letter {
+			height: 150px;
+			width: 100px;
+			background-color: wheat;
+			margin-left: 7%;
+			margin-top: 20px;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+		}
+		
+		.recommend {
+			position: relative;
+		}
+		
+		.letter-left {
+			height: 150px;
+			width: 100px;
+			background-color: wheat;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+			position: absolute;
+			top: 20px;
+			left: 10px;
+		}
+		
+		.letter-mid {
+			height: 150px;
+			width: 100px;
+			background-color: wheat;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+			position: absolute;
+			top: 20px;
+			left: 36%;
+		}
+		
+		.letter-right {
+			height: 150px;
+			width: 100px;
+			background-color: wheat;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+			position: absolute;
+			top: 20px;
+			right: 10px;
+		}
+		.mui-bar-nav a{
+			position: absolute;
+			top: 13px;
+			right: 10px;
+			font-size: 16px;
+			color: orange;
+		}
+	    header h1 {
+				color: orange!important;
+			}
+	</style>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav" >
+			<h1 class="mui-title">校一校</h1>
+			<a onclick="window.location='login.html'">注册/登录</a>
+		</header>
+		<div class="mui-content">
+
+			<div class="title">
+
+			</div>
+
+			<div class="characters">
+				<span>校园服务</span>
+
+			</div>
+
+			<div class="work">
+				<div class="function-left" style="margin-left:25px; background-image: url(img/01.png);background-size: cover; background-repeat: no-repeat ;" onclick="window.location='main-play.html'">
+					<span>玩一玩</span>
+				</div>
+
+				<div class="function-mid" style="background-image: url(img/02.png);background-size: cover; background-repeat: no-repeat ;" onclick="window.location='help1.html'">
+					<span>帮一帮</span>
+				</div>
+
+				<div class="function-right" style="background-image: url(img/03.png);background-size: cover; background-repeat: no-repeat ;" id="tyt">
+					<span>谈一谈</span>
+				</div>
+
+				<div class="function-left2" style="margin-left:25px;margin-top: 30px; background-image: url(img/04.png);background-size: cover; background-repeat: no-repeat ;" onclick="window.location='schoolnews.html'">
+					<span>大事件</span>
+				</div>
+
+				<div class="function-mid2" style="margin-top: 30px; background-image: url(img/05.png);background-size: cover; background-repeat: no-repeat ;" onclick="window.location='sw.html'">
+					<span>找失物</span>
+				</div>
+
+				<div class="function-right2" style=" margin-top: 30px;background-image: url(img/06.png);background-size: cover; background-repeat: no-repeat ;" onclick="window.location='###3'" id="nkd">
+					<span>拿快递</span>
+				</div>
+
+			</div>
+			<div class="characters">
+				<span>首页推荐</span>
+
+			</div>
+			<div class="recommend">
+
+				<div class="letter-left" style="margin-left:3px;">
+
+				</div>
+				<div class="letter-mid">
+
+				</div>
+				<div class="letter-right">
+
+				</div>
+			</div>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			requrl="http://122.51.146.169:8080/app/JavaApi";
+			requrl2="http://122.51.146.169:8080/app/JavaApione";
+			requrl3="http://122.51.146.169:8080/app/JavaApitwo";
+			requrl4="http://122.51.146.169:8080/app/upload/";  //图片路径
+    		localStorage.setItem("requrl",requrl);
+    		localStorage.setItem("requrl2",requrl2);
+    		localStorage.setItem("requrl3",requrl3);
+    		localStorage.setItem("requrl4",requrl4);
+    		
+    		document.getElementById('tyt').addEventListener('tap',function () {
+    		       mui.openWindow('publish-list.html','publish-list',{}) 
+    		})
+    		document.getElementById('nkd').addEventListener('tap',function () {
+    		       mui.openWindow('kuaidijiedan.html','kuaidijiedan',{}) 
+    		})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.jine {
+				width: 70px;
+				height: 70px;
+				background-color: #ff8000;
+				position: absolute;
+				left: 13px;
+				top: 13px;
+				border-radius: 10px;
+			}
+			
+			.jine p {
+				padding-top: 24px;
+				margin-left: 10px;
+				font-size: 35px;
+				color: white;
+				font-weight: bolder;
+			}
+			
+			.jine p {
+				padding-top: 24px;
+				margin-left: 10px;
+				font-size: 35px;
+				color: white;
+				font-weight: bolder;
+			}
+			
+			.kuang {
+				list-style: none;
+				height: 120px;
+				border: solid 1px #D0D0D0;
+				position: relative;
+				background-color: #FFFFFF;
+				border-radius: 5px;
+			}
+			
+			#faqi {
+				padding-top: 34px;
+			}
+			
+			.xinxi {
+				position: absolute;
+				padding-top: 24px;
+				padding-left: 100px;
+				/*border: solid 1px;*/
+			}
+			
+			.xinxi p {
+				color: #000000;
+				font-size: 14px;
+				font-weight: 800;
+			}
+			
+			#toukuang {
+				height: 30px;
+				background-color: #F0F0F0;
+				line-height: 25px;
+				font-size: 20px;
+			}
+			
+			#anniukuang {
+				position: absolute;
+				top: 18px;
+				right: 20px;
+			}
+			
+			.an {
+				width: 95px;
+				height: 40px;
+				line-height: 8px;
+			}
+			
+			.time {
+				position: absolute;
+				bottom: -2px;
+				left: 36px;
+				color: #000000;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的订单</h1>
+		</header>
+
+		<div class="mui-content-padded">
+
+		</div>
+
+		<div id="lbfd">
+
+			<div id="faqi">
+			<div id="toukuang">
+				我发布的
+			</div>
+			<ul id="fbul">
+				<li class="kuang" id="dataid">
+					<div class="jine">
+						<p id="qian">3元</p>
+					</div>
+					<div class="xinxi">
+						<p>任务状态：<span id="fbzhuangtai">XXXXX</span></p>
+						<p>取货地址：<span id="kuaididian">XXXXX</span></p>
+					</div>
+					<p class="time">发布时间：<span id="fbtime">09-10/21:22</span></p>
+					<div id="anniukuang">
+						<button type="button" class="mui-btn mui-btn-green mui-btn-block an" id="fb1">确认完成</button>
+						<button type="button" class="mui-btn mui-btn-red mui-btn-block an" id="fb2">取消任务</button>
+					</div>
+				</li>
+				</ul>
+				<div id="toukuang">
+					我领取的
+				</div>
+				<ul id="lqul">
+					<li class="kuang" id="dataid">
+					<div class="jine">
+						<p id="lqqian">3元</p>
+					</div>
+					<div class="xinxi">
+						<p>任务状态：<span id="lqzhuangtai"></span></p>
+						<p>取货地址：<span id="kuaididian"></span></p>
+					</div>
+					<p class="time">领取时间：<span id="lqtime">09-10/21:22</span></p>
+					<div id="anniukuang">
+						<button type="button" class="mui-btn mui-btn-red mui-btn-block an" id="lq">取消任务</button>
+					</div>
+					</li>
+				</ul>
+		</div>
+
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+
+			 var requrl2=localStorage.getItem("requrl2");
+
+			mui.ready(function() {
+				mui.ajax(requrl2, {
+					data: {
+						rnum:21,
+						meberid:1
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					success: function(res) {
+						data=res.list1;
+						//我发布的
+						console.log(JSON.stringify(res));
+                        itembox=document.getElementById("fbul");
+						for(var i = 0; i < data.length; i++) {
+							var qian = data[i].qian;
+							var fbzhuangtai = data[i].fbzhuangtai;
+							var fbdizhi = data[i].fbdizhi;
+							var fbtime = data[i].fbtime;
+							var newfbli = "<li class='kuang' id='dataid'>";
+								newfbli += "<div class='jine'>";
+								newfbli += "<p id='qian'>" + qian + "</p>";
+								newfbli += "</div>";
+								newfbli += "<div class='xinxi'>";
+								newfbli += "<p>任务状态：<span id='fbzhuangtai'>" + fbzhuangtai + "</span></p>";
+								newfbli += "<p>取货地址：<span id='kuaididian'>" + kuaididian + "</span></p>";
+								newfbli += "</div>";
+								newfbli += "<p class='time'>发布时间：<span id='fbtime'>" + fbtime + "</span></p>";
+								newfbli += "<div id='anniukuang'>"
+								newfbli += "<button type='button' class='mui-btn mui-btn-green mui-btn-block an' id='fb1'>确认完成</button>";
+								newfbli += "<button type='button' class='mui-btn mui-btn-red mui-btn-block an' id='fb2'>取消任务</button>";
+								newfbli += "</div>"
+								newfbli += "</li>"
+								var oldhtml=itembox.innerHTML;
+								var newhtml= oldhtml+newfbli;
+								itembox.innerHTML=newhtml;
+						}
+//
+						
+//						var oldul = document.getElementById("fbul");
+//						oldul.innerHTML = oldul.innerHTML + newfbli;
+//
+//						for(var l = 0; l < data.length; i++) {
+//							var lqqian = data[i].lqqian;
+//							var lqzhuangtai = data[i].fbzhuangtai;
+//							var lqdizhi = data[i].lqdizhi;
+//							var lqtime = data[i].lqtime;
+//						}
+//
+//						var newlqli = "<li class='kuang' id='dataid'>"
+//						newlqli += "<div class='jine'>"
+//						newlqli += "<p id='lqqian'>" + lqqian + "</p>"
+//						newlqli += "</div>"
+//						newlqli += "<div class='xinxi'>"
+//						newlqli += "<p>任务状态：<span id='lqzhuangtai'>" + lqzhuangtai + "</span></p>"
+//						newlqli += "<p>取货地址：<span id='kuaididian'>" + kuaididian + "</span></p>"
+//						newlqli += "</div>"
+//						newlqli += "<p class='time'>领取时间：<span id='lqtime'>" + lqtime + "</span></p>"
+//						newlqli += "<div id='anniukuang'>"
+//						newlqli += "<button type='button' class='mui-btn mui-btn-red mui-btn-block an' id='lq'>取消任务</button>"
+//						newlqli += "</div>"
+//						newlqli += "</li>"
+//						var oldull = document.getElementById("lqul");
+//						oldull.innerHTML = oldull.innerHTML + newlqli;
+
+					}
+				});
+			});
+
+			document.getElementById("fb1").addEventListener('tap', function() {
+				var btnArray = ['否', '是'];
+				mui.confirm('是否提交订单，确认？', '笑一笑', btnArray, function(e) {
+					if (e.index == 1) {
+						mui.toast('确认完成');
+					} else {
+						mui.toast('已取消');
+					}
+				})
+			});
+
+			document.getElementById("fb2").addEventListener('tap', function() {
+				var btnArray = ['否', '是'];
+				mui.confirm('是否取消订单，确认？', '笑一笑', btnArray, function(e) {
+					if (e.index == 0) {
+						mui.toast('未取消');
+					} else {
+						mui.toast('取消成功');
+					}
+				})
+			});
+
+			document.getElementById("lq").addEventListener('tap', function() {
+				var btnArray = ['否', '是'];
+				mui.confirm('是否取消订单，确认？', '笑一笑', btnArray, function(e) {
+					if (e.index == 0) {
+						mui.toast('未取消');
+					} else {
+						mui.toast('取消成功');
+					}
+				})
+			});
+
+			
+		</script>
+
+	</body>
+
+</html>

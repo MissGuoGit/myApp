@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			p{
+				margin-top: 50px;
+				margin-left: 20px;
+				font-size: 20px;
+			}
+			.biaoti{
+				margin-left:40px;
+				margin-top: 30px;
+				padding-bottom: 30px;
+				font-size: 25px;
+				color: white;
+			}
+			#xiangqing{
+				background-color: rgba(255,255,255,0.6);
+			    border: solid 1px lightblue;
+			    border-radius: 5px;
+			    width: 75%;
+			    height: 320px;
+			    margin: 0 auto;
+			}
+			#xiangqing p{
+				color: blue;
+			}
+			.tishi{
+				margin-left: 40px;
+				margin-top: 20px;
+				color: white;
+				font-size: 18px;
+			}
+			.mui-content{
+				background-image: url(img/blue4.jpg);
+				width: 100%;
+				height: 100%;
+				/*height:calc(100% - 45px);*/
+				opacity: 0.5;
+			}
+			.mui-icon-left-nav {
+				color: orange;
+			}
+			header h1 {
+				color: orange!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">今日运势</h1>
+		</header>
+		<div class="mui-content">
+			<p class="biaoti">查看运势</p>
+		
+		<div id="xiangqing"><p style="margin-top: 20px;">幸运数字：6（传参数）</p><p>幸运颜色：红色（传参数）</p><p>财运指数%：80%（传参数）</p><p>爱情指数%：50%（传参数）</p></div> 
+		<p class="tishi">为博一笑，纯属虚构，请勿当真</p>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			/*切换页面*/
+			mui("#tabbox").on("tap",".mui-tab-item",function(){
+				var that=this;
+				var tempurl=that.href;
+				mui.openWindow({
+					url:tempurl
+				});
+			});
+			var randomnumber1;//产生的幸运数字随机数
+			randomnumber1=Math.random()*10;
+			randomnumber1=parseInt(randomnumber1);
+			document.getElementById("xiangqing").childNodes[0].innerHTML="幸运数字："+randomnumber1;
+			
+			var randomnumber2;//产生的财运随机数
+			randomnumber2=Math.random()*100;
+			randomnumber2=parseInt(randomnumber2);
+			console.log(randomnumber2);
+			//随机数若小于等于25则显示25%
+			if(randomnumber2<=25)
+			{
+			   document.getElementById("xiangqing").childNodes[2].innerHTML="财运指数：25%";
+			}
+			else{
+			   document.getElementById("xiangqing").childNodes[2].innerHTML="财运指数："+randomnumber2+"%";	
+			}
+			
+		    var randomnumber3;//产生的爱情指数随机数
+			randomnumber3=Math.random()*100;
+			randomnumber3=parseInt(randomnumber3);
+			if(randomnumber3<=25)
+			{
+			   document.getElementById("xiangqing").childNodes[3].innerHTML="爱情指数：25%";
+			}
+			else{
+			  document.getElementById("xiangqing").childNodes[3].innerHTML="爱情指数："+randomnumber3+"%";
+			}
+			
+			var randomnumber4;//产生的幸运颜色随机数
+			randomnumber4=Math.random()*10;
+			randomnumber4=parseInt(randomnumber4);
+			var contain=document.getElementById("xiangqing").childNodes[1];
+			switch (randomnumber4){
+				case 1:contain.innerHTML="幸运颜色：红色";break;
+				case 2:contain.innerHTML="幸运颜色：蓝色";break;
+				case 3:contain.innerHTML="幸运颜色：绿色";break;
+				case 4:contain.innerHTML="幸运颜色：黄色";break;
+				case 5:contain.innerHTML="幸运颜色：紫色";break;
+				case 6:contain.innerHTML="幸运颜色：黑色";break;
+				case 7:contain.innerHTML="幸运颜色：橙色";break;
+				default:contain.innerHTML="幸运颜色：白色";break;
+			}
+			//接收来自测一测传来的参数，并把参数放到对应的位置显示出来
+//			mui.plusReady(function () {
+//			    var texiao=plus.webview.currentWebview();
+//			    document.getElementById("xiangqing").childNodes[0].innerHTML="幸运数字："+texiao.luckynumber;
+//			   
+//			})
+			
+			
+			
+		</script>
+	</body>
+
+</html>

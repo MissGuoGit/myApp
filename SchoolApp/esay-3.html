@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;	
+			}
+			.mui-content{
+				/*background-color:#FBF4E1!important;*/
+			}
+			#bankuai-box{
+				width: 90%;
+				margin: 0 auto;
+				/*box-shadow: -1px 0px 25px #888888;*/
+				/*border-radius: 5px;*/
+				border-bottom: solid 1px orange;
+				position: relative;
+				padding-top:10px;
+				padding-left:10px;
+				padding-right:10px;
+				/*background-color: white;*/
+				z-index: 1;
+			}
+			#bankuai-box p{
+				letter-spacing: 1px;
+				color: #333333;
+				line-height: 28px;
+				z-index: 2;
+				position: relative;
+			}
+			#bankuai-box img{
+				width: 30px;
+				height: 30px;
+				border-radius: 35px;
+				margin-top: 3px;
+			}
+			.littwords{
+			font-size: 15px;
+			color: #333333!important;	
+			position: absolute;
+			left: 45px;
+			top: 44px;
+			z-index: 2;
+			}
+			#tabbox a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+		   .mui-tab-label{
+		   	display: block; 
+		   	font-size: 12px;	
+		   	color: #CCCCCC;
+		   }
+		   header {
+				background-color: orange!important;
+			}
+			
+			header h1 {
+				color: white!important;
+			}
+			
+			.mui-icon-left-nav {
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">生活偶尔不如意，笑笑更开心！</h1>
+		</header>
+		
+		<nav class="mui-bar mui-bar-tab" id="tabbox">
+		    <a class="mui-tab-item" href="esay-1.html">
+		        <img src="img/wanf 1-1.png"/>
+		        <span class="mui-tab-label">搞笑趣图</span>
+		    </a>
+		    <a class="mui-tab-item" href="esay-2.html">
+		        <img src="img/wanf2-1.png"/>
+		        <span class="mui-tab-label">哈哈趣闻</span>
+		    </a>
+		    <a class="mui-tab-item  mui-active" href="esay-3.html">
+		        <img src="img/wanf3-2.png"/>
+		        <span class="mui-tab-label">笑话段子</span>
+		    </a>
+		</nav>
+		<div class="mui-content" id="itembox1">
+		 
+		  <div style="height:15px;"></div>
+		  <div id="bankuai-box">
+		  	<h4>天儿冷,笑话也冷呢!</h4>
+		  	<img src="img/wanf3-2.png"/><span class="littwords">上传时间：2019-10-2</span>
+		  	<p class="text">1、医院里，一孕妇难产，医生灵机一动，给她服用了益生菌。医生灵机一动，给她服用了益生菌</p>
+            <p class="text">2、晚上，老公准备睡觉，刚上床就喊起来：老婆，昨晚儿子尿床了，叫你早上把被子拿出去晒的。 老婆：是啊，我晒了啊...... 老公：奇怪，今天天气这么好，被子都没有晒干啊？你放哪晒的啊？ 老婆：哦，放在朋友圈啊！</p>	
+		  </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui("#tabbox").on("tap",".mui-tab-item",function(){
+				var that=this;
+				var tempurl=that.href;
+				mui.openWindow({
+					url:tempurl
+				});
+			});
+			
+			mui.ready(function(){
+				var requrl2=localStorage.getItem("requrl2");
+				mui.ajax(requrl2,{
+						data:{
+							rnum:"9",//请求后端对应的处理
+							typeid:"3"//easy-3第三个板块
+                		    //p:1	//请求页码
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							console.log(JSON.stringify(data));//打印输出获取到的json格式的数据
+							
+							//向里面填充数据，加在对应的地方显示
+							var itembox =document.getElementById("itembox1");
+							for (var i=0;i<data.length;i++) 
+							{
+								var lihtml="<div style='height:15px;'></div>";
+		            			lihtml+="<div id='bankuai-box'>";
+		                		lihtml+="<h4>"+data[i].HHtitle+"</h4>";
+		                		lihtml+="<img src='img/f3-2.png'/><span class='littwords'>上传时间："+data[i].HHtime+"</span>";
+		                    	lihtml+="<p class='text'>1、"+data[i].HHcontains1+"</p>";//该contains在后端录入时就同时录入三条
+		                    	lihtml+="<p class='text'>2、"+data[i].HHcontains2+"</p>";
+		                		lihtml+="<p class='text'>3、"+data[i].HHcontains3+"</p>";
+		                		lihtml+="</div>";
+								var oldhtml=itembox.innerHTML;
+								var newhtml=oldhtml+lihtml;
+								itembox.innerHTML=newhtml;
+								
+							}
+							
+						}
+				});	
+			});
+		</script>
+	</body>
+
+</html>

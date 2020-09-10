@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		
+		<style type="text/css">
+			.mui-bar{
+				background-color: orange;
+				
+			}
+			
+			.mui-pull-left{
+				color: white;
+			}
+			
+			.mui-title{
+				color: white;
+			}
+			
+			
+			.biaodan-one{
+				background-color: orange;
+				width: 200px;
+				height: 65px;
+				margin: 0 auto;
+				margin-top: 170px;
+				box-shadow: 0 0 15px rgba(0,0,0,0.5);
+				color: white;
+				line-height: 65px;
+				text-align: center;
+				font-size: 25px;
+			}
+			
+			.biaodan-two{
+				background-color: orange;
+				width: 200px;
+				height: 65px;
+				margin: 0 auto;
+				margin-top: 110px;
+				box-shadow: 0 0 15px rgba(0,0,0,0.5);
+				color: white;
+				line-height: 65px;
+				text-align: center;
+				font-size: 25px;
+			}
+		
+        /*底部p标签*/
+       .footer-table p{
+       	margin: 0;
+       }
+        .left-table{
+        	height: 55px;
+        	width: 32%;
+        }
+        .mid-table{
+        	height: 55px;
+        	width: 36%;
+        }
+        .right-table{
+        	height: 55px;
+        	width: 32%;
+        }
+    	.footer-icon-img{
+    		height: 30px;
+        	width: 100%;
+    	}
+        .footer-icon-img img{
+        	display: block;
+        	margin: 0 auto;
+        	margin-top: 3px;
+        	height: 24px;
+        	width: 24px;
+        	/*margin-left:50px;
+        	margin-top: 2px;*/
+        /*	background-color: gold;*/
+        }
+        .footer-name{
+        	margin: 0;
+        	height: 25px;
+        	line-height: 25px;
+        	color: black;
+        	text-align: center;
+        	font-size: 16px;
+        }
+        .mui-content{
+			margin-bottom: 58px;
+		}
+		.mui-btn-primary{
+				position: fixed !important;
+				right: 5px;
+				background-color: orange;
+				border: solid 1px wheat;
+			}
+			
+		        *{
+			padding: 0;
+			margin: 0;
+		}
+		.page-bottom{
+			height: 55px;
+			width: 100%;
+			position:fixed;
+			bottom: 0px;
+			z-index: 100;
+			background-color: #F7F7F7;
+			border-top:solid 1px #AAAAAA ;
+        }
+        .footer-table{
+        	float: left;
+        	text-decoration: none;
+        	
+        }
+        
+		</style>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" ></a>
+		    <h1 class="mui-title">发布</h1>
+		</header>
+		
+		
+		<div class="biaodan-one" id="one-button">
+			我拾到了东西
+		</div>
+		
+		<div class="biaodan-two" id="two-button">
+			我丢失了东西
+		</div>
+		<footer class="page-bottom">
+	    <a class="footer-table left-table mui-active" href="sw.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling2-1.png"/></p>
+	        <p class="footer-name">失物招领</p>
+	    </a>
+	    <a class="footer-table mid-table" href="sz.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling1-2.png"/></p>
+	        <p class="footer-name">寻找失物</p>
+	    </a>
+	     <a class="footer-table right-table" href="wo.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling3-1.png"/></p>
+	        <p class="footer-name">我</p>
+	    </a>
+	    
+	</footer>
+	
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.getElementById('one-button').addEventListener('tap',function () {
+    		       mui.openWindow('biaodan1.html','publish-list',{}) 
+    		})
+			document.getElementById('two-button').addEventListener('tap',function () {
+    		       mui.openWindow('biaodan2.html','publish-list',{}) 
+    		})
+		</script>
+	</body>
+
+</html>

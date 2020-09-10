@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>上传图片</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.css"/>
+    <style type="text/css">
+    	.btnselectpic{
+    		width: 120px;
+    		height: 120px;
+    		background-color: #eee;
+    		color: #333;
+    		border: solid 1px #ccc;
+    		margin: 30px auto;
+    		font-size: 72px;
+    		text-align: center;
+    		line-height: 120px;
+    	}
+    	
+    	.selectedpicbox{
+    		width: 250px;
+    		height:200px;
+    		background-color: #eee;
+    		color: #333;
+    		border: solid 1px #ccc;
+    		margin: 10px auto;
+    		text-align: center;
+    		line-height: 120px;
+    		position: relative;
+    	}
+    	.selectedpicbox img{
+    		width:250px;
+    		max-height:200px;
+    		padding:2px;
+    		position: absolute;
+    		left: 0px;
+    		top: 0px;
+    	}
+    	#details{
+    		margin-top: 10px;
+    		margin-bottom: 5px;
+    	
+    	}
+    	.mui-pull-left{
+    		color: orange;
+    	}
+    	#btnselectpic{
+    		background-color: orange;
+    		border: solid 1px orange;
+    	}
+    	#uploadheadImage{
+    		background-color: orange;
+    		border: solid 1px orange;
+    	}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">添加动态</h1>
+	</header>
+	<div class="mui-content">
+		 
+	     
+	     <div class="mui-row mui-content-padded">
+	     	<textarea name="details" id="details" placeholder="请输入动态" rows="5"></textarea>
+	     </div>
+	    
+	     <div class="selectedpicbox">
+	     	您即将上传的图片
+	     	<img src="" id="showimgbox"/>
+	     	
+	     </div>
+	     
+	      <div class="mui-row mui-content-padded">
+	     	<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="btnselectpic">上传图片</button>
+	     </div>
+	     
+	      <div class="mui-row mui-content-padded">
+	     	<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="uploadheadImage">添加动态</button>
+	     </div>
+	</div>
+   
+		    <script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+		    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		    <script type="text/javascript">
+		    	mui.init();
+		    	var meberid=localStorage.getItem("meberid");
+				console.log(meberid);
+		    	var piclistPage=null;
+		    	document.getElementById('btnselectpic').addEventListener('tap', function() {
+			    if (mui.os.plus) {
+			        var buttonTit = [{
+			            title: "拍照"
+			        }, {
+			            title: "从手机相册选择"
+			        }];
+			        
+			        plus.nativeUI.actionSheet({
+			            title: "上传图片",
+			            cancel: "取消",
+			            buttons: buttonTit
+			        }, function(b) { /*actionSheet 按钮点击事件*/
+			            switch (b.index) {
+			                case 0:
+			                    break;
+			                case 1:
+			                    getImage(); /*拍照*/
+			                    break;
+			                case 2:
+			                    galleryImg();/*打开相册*/
+			                    break;
+			                default:
+			                    break;
+			            }
+			        })
+			    }        
+			}, false);
+			
+					// 拍照获取图片
+					function getImage() {
+					    var c = plus.camera.getCamera();
+					    c.captureImage(function(e) {
+					        plus.io.resolveLocalFileSystemURL(e, function(entry) {
+					        	//var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径            	
+					    setHtml(entry.toLocalURL());
+					}, function(e) {
+					    console.log("读取拍照文件错误：" + e.message);
+					    });
+					}, function(s) {
+					    console.log("error" + s);
+					}, {
+					    filename: "_doc/camera/"
+					    })
+					}
+					
+					// 从相册中选择图片 
+					function galleryImg(){
+						// 从相册中选择图片
+					plus.gallery.pick( function(e){
+						for(var i in e.files){
+					    	var fileSrc = e.files[i]
+					    	setHtml(fileSrc);
+						}
+					}, function ( e ) {
+						console.log( "取消选择图片" );
+					},{
+						filter: "image",
+						multiple: true,
+						maximum:1,//最多选择4张图片
+						system: false,
+						onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择1张图片');
+					    	}
+					    });
+					}
+					
+					function setHtml(imgurl)
+					{
+						document.getElementById("showimgbox").src=imgurl;
+						
+					}
+					
+					document.getElementById("uploadheadImage").addEventListener("tap",function(){
+						uploadimg();
+					});
+					
+					
+					var piclistPage = null;
+					function uploadimg()
+					{
+					var filepath=document.getElementById("showimgbox").src;
+					console.log(filepath);
+					plus.zip.compressImage({			
+					   		src: filepath,			
+					   		dst: '_doc/zip_'+filepath.substr(filepath.lastIndexOf('/') + 1),			
+					quality:100,//质量1-100	
+					overwrite: true,
+					width:"10%",//缩小到原来的20%			
+					height:"10%"//缩小到原来的20%		
+					},
+		   			function(event) {						
+		   			//console.log("<=====压缩文件路径=====>"+event.target);			
+		   			//console.log("<=====压缩后的大小=====>"+event.size);//除1024单位为K
+		   			//console.log("<=====压缩后的宽度=====>"+event.width);			
+		   			//console.log("<=====压缩后的高度=====>"+event.height);
+		   			convertImgToBase64(event.target, function(base64Img){
+		   				//console.log("==================");
+						var isstartblob=true;//开始标记
+						var isendblob=false;//结束标记
+						var i=0;//循环次数
+						var issend=true;
+						var str=base64Img;//图片64位编码后的数据
+						console.log(str);	
+						var requrl3=localStorage.getItem("requrl3");
+						mui.ajax(requrl3,{
+						data:{
+							rnum:"10",
+							ttdymaicpicture:str,
+							ttmemberid:meberid,
+	                  		ttname:"彭玲玲",
+	                  		ttheadpicture:"肖战",//随便输什么，头像上传还没有实现
+	                  		ttcontent:document.getElementById("details").value	
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							mui.toast("上传成功!");
+							if(!piclistPage){
+							    piclistPage = plus.webview.getWebviewById('publish-list');
+							}
+							mui.fire(piclistPage,'reloadpage',{				       
+						    });
+							var ws = plus.webview.currentWebview();
+                            plus.webview.close(ws);
+							console.log(JSON.stringify(data));
+						}
+							});
+					    }); 
+			   			
+			   		},		
+			   		function(error) {		
+			   			console.log("压缩失败:"+error.message); 
+			   		}
+				)
+			}
+
+
+			function convertImgToBase64(url, callback, outputFormat){
+			       	var canvas = document.createElement('CANVAS'),
+			    　　  	ctx = canvas.getContext('2d'),
+			    	img = new Image;
+			    　		img.crossOrigin = 'Anonymous';
+			    	img.onload = function(){
+			        　　 	canvas.height = img.height;
+			        　　  	canvas.width = img.width;
+			        　　  	ctx.drawImage(img,0,0);
+			        　　  	var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+			        　　  	callback.call(this, dataURL);
+			        　　  	canvas = null; 
+			        };
+			    　　  	img.src = url;
+				}    
+				
+				
+				
+				
+				
+    </script>
+</body>
+</html>
+

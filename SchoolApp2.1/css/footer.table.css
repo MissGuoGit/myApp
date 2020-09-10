@@ -1,0 +1,57 @@
+        *{
+			padding: 0;
+			margin: 0;
+		}
+		.page-bottom{
+			height: 55px;
+			width: 100%;
+			position:fixed;
+			bottom: 0px;
+			z-index: 100;
+			background-color: #F7F7F7;
+			border-top:solid 1px #AAAAAA ;
+        }
+        .footer-table{
+        	float: left;
+        	text-decoration: none;
+        	
+        }
+        
+        /*底部p标签*/
+       .footer-table p{
+       	margin: 0;
+       }
+        .left-table{
+        	height: 55px;
+        	width: 50%;
+        }
+       
+        .right-table{
+        	height: 55px;
+        	width: 50%;
+        }
+    	.footer-icon-img{
+    		height: 30px;
+        	width: 100%;
+    	}
+        .footer-icon-img img{
+        	display: block;
+        	margin: 0 auto;
+        	margin-top: 3px;
+        	height: 24px;
+        	width: 24px;
+        	/*margin-left:50px;
+        	margin-top: 2px;*/
+        /*	background-color: gold;*/
+        }
+        .footer-name{
+        	margin: 0;
+        	height: 25px;
+        	line-height: 25px;
+        	color: black;
+        	text-align: center;
+        	font-size: 16px;
+        }
+        .mui-content{
+			margin-bottom: 58px;
+		}

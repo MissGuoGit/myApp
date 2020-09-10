@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+		<style type="text/css">
+			.mui-scroll-wrapper{
+				margin-top: 40px;
+			}
+			#sj{
+			position: absolute;
+			right: 0px;
+		}
+		header{
+			background-color: orange!important;
+		}
+		.mui-icon-left-nav{
+				color: white!important;
+			}
+			.mui-title{
+				color: white!important;
+			}
+		 #footer a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+        /*//底部选项卡的图片字体*/                           
+	   .mui-tab-label{
+	   	display: block; 
+	   	font-size: 12px;	
+	   	color: #CCCCCC;
+	   }
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">领取任务</h1>
+		</header>
+		<div class="mui-content">
+		    <div id="scroll" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view" id="itembox">
+								
+								<!--<li class="mui-table-view-cell mui-media"  >
+									<a href="javascript:;">
+										<p id="sj">2010-10-10</p>
+										主题
+										<div class="mui-media-body">								
+											<p class='mui-ellipsis'>找个小哥哥辅导高数，一个月伙食，我包了</p>
+										</div>
+									</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<a class="mui-tab-item mui-active" id="lqrw">
+				<img src=""/>
+				<span class="mui-tab-label">领取任务</span>
+			</a>
+			<a class="mui-tab-item" id="fbrw">
+				<img src=""/>
+				<span class="mui-tab-label">发布任务</span>
+			</a>
+			<a class="mui-tab-item" id="pxb">
+				<img src=""/>
+				<span class="mui-tab-label">排行榜</span>
+			</a>
+			<a class="mui-tab-item" id="rwzx">
+				<img src="img/wanf1-2.jpg"/>
+				<span class="mui-tab-label">任务中心</span>
+			</a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			//请求数据
+			mui.ready(function(){
+				mui.ajax("http://192.168.43.17:8080/app/javaapi",{
+						data:{
+							rnum:"2"
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							console.log(JSON.stringify(data));
+							var itembox = document.body.querySelector('#itembox');
+							
+							for (var i=0;i<data.length;i++) 
+							{
+								var itemhtml="<li class='mui-table-view-cell mui-media'><a href=''><p id='sj'>" + data[i].shijian+"</p>"+data[i].zhuti+"<div class='mui-media-body'><p class='mui-ellipsis'>" + data[i].neirong+"</p></div></a></li>";
+								var oldhtml=itembox.innerHTML;
+								var newhtml= oldhtml+itemhtml;
+								itembox.innerHTML=newhtml;
+							}
+							
+						}
+				});
+				
+				mui("#itembox").on("tap","li",function(){
+					var currentid=this.id;
+					mui.openWindow({
+				    	url:"help41.html",
+				    	id:"help41.html",
+				    	extras:{
+						   newsid:currentid
+						},
+					});
+					
+				});
+			
+			});
+			//页面跳转
+			document.querySelector('#lqrw').addEventListener('tap',function () {
+			      mui.openWindow('text.html','text',{})  
+			})
+			document.querySelector('#fbrw').addEventListener('tap',function () {
+			        mui.openWindow('help2.html','help2',{})
+			})
+			document.querySelector('#pxb').addEventListener('tap',function () {
+			      mui.openWindow('help3.html','help3',{})  
+			})
+			document.querySelector('#rwzx').addEventListener('tap',function () {
+			        mui.openWindow('help4.html','help4',{})
+			}) 
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<style type="text/css">
+			. {
+				padding: 0;
+				margin: 0;
+			}
+			.mui-pull-left{
+				color: orange;
+			}
+			
+			.top {
+				background-color: white;
+				height: 100px;
+				position: relative;
+				border-bottom: solid 1px #ccc;
+			}
+			
+			.touxiang img {
+				position: absolute;
+				top: 25px;
+				left: 20px;
+				height: 50px;
+				width: 50px;
+			}
+			
+			.name {
+				position: absolute;
+				left: 80px;
+				top: 25px;
+			}
+			
+			#t1 {
+				font-size: 18px;
+				font-family: "微软雅黑";
+			}
+			
+			#t2 {
+				font-size: 12px;
+			}
+			
+			.function {
+				margin-top: 10px;
+				background-color: white;
+				height: 45px;
+				border-top: solid 1px #ccc;
+				border-bottom: solid 1px #ccc;
+				position: relative;
+			}
+			
+			.function img {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+			}
+			
+			.function p {
+				line-height: 45px;
+				margin-left: 10px;
+				font-size: 15px;
+				font-family: "微软雅黑";
+			}
+			.mui-pull-left{
+				color: orange;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "  onclick="window.location='index2.html'"></a>
+		    <h1 class="mui-title">个人中心</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div class="top">
+				<div class="touxiang">
+					<img src="img/touxiang.png" id="touxiang"/>
+				</div>
+				<div class="name">
+					<p id="t1">邹博伦</p>
+					<p id="t2">账号：zbldsb</p>
+				</div>
+			</div>
+
+			<div class="function ziliao">
+				<img src="img/jiantouarrow487.png" />
+				<p>查看个人资料</p>
+			</div>
+
+			<div class="function">
+				<img src="img/jiantouarrow487.png" />
+				<p>我的快递中心</p>
+			</div>
+			<div class="function">
+				<img src="img/jiantouarrow487.png" />
+				<p>我的积分</p>
+			</div>
+
+            <div class="function">
+				<img src="img/jiantouarrow487.png" />
+				<p>我的失物中心</p>
+			</div>
+
+			<div class="function">
+				<img src="img/jiantouarrow487.png" />
+				<p>建议与意见</p>
+
+			</div>
+			<div class="function xiugai">
+				<img src="img/jiantouarrow487.png" />
+				<p>修改个人资料</p>
+
+			</div>
+			<div class="function ">
+				<img src="img/jiantouarrow487.png" />
+				<p>退出登录</p>
+
+			</div>
+		</div>
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			var newuser = localStorage.getItem("mebnc");//nehcheng
+			var meberid = localStorage.getItem("meberid");
+			var requrl = localStorage.getItem("requrl");
+			var requrl4=localStorage.getItem("requrl4");//图片路径
+//			var newuser = localStorage.getItem("newuser");//nehcheng
+			var useremail = localStorage.getItem("useremail");
+			console.log(meberid);
+			console.log(newuser);
+			mui.ready(function(){
+				
+				
+				var div=document.getElementById("geren-xinxi");
+				mui.ajax(requrl,{
+					data:{
+						rnum:"12",
+						userid:meberid,
+						useremail:useremail,
+						user:newuser
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					success:function(data){
+						console.log(JSON.stringify(data));
+					document.getElementById("touxiang").src=requrl4+data.userimg;//插入个人中心的图片
+					document.getElementById("t1").innerHTML=newuser;
+					document.getElementById("t2").innerHTML=meberid;
+					}	
+				});
+			})
+//			var userimg = localStorage.getItem("userimg");
+			
+			//跳转写修改个人中心
+			 mui(".mui-content").on("tap",".xiugai",function(){		 	
+			 	mui.openWindow({
+			 	url:"gerenzhongxin-xiugai.html",
+		 		id:"gerenzhongxin-xiugai"
+			 	});
+			 });
+			 
+			
+			 
+			 //跳转写个人资料详情
+			 mui(".mui-content").on("tap",".ziliao",function(){		 	
+			 	mui.openWindow({
+			 	url:"geren-ziliao.html",
+		 		id:"geren-ziliao"
+			 	});
+			 });
+			
+		</script>
+	</body>
+
+</html>

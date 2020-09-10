@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.logo{
+				height: 200px;
+				background-color: white;
+				height: 130px;
+				width: 130px;
+				margin: 0 auto;
+				margin-top: 50px;
+				
+				border-radius: 150px;
+			}
+			
+			.box{
+				height: 40px;
+				width: 250px;
+				margin: 0 auto;
+				margin-top: 10px;
+				padding-left: 5px;
+				font-family: "微软雅黑";
+				font-size: 15px;
+				/*background-color: white;*/
+				border-radius: 8px;
+			/*	border:1px solid #ccc;*/
+				position: relative;
+				line-height: 40px;
+				color: wheat;
+				font-weight: 800;
+				
+				
+			}
+			.box input{
+				position: absolute;
+				right: 10px;
+				height: 38px;
+				width: 170px;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				border-radius: 0px;
+				background-color: inherit;
+				
+				font-weight: 100;
+				
+				
+			}
+			
+			.confirm{
+				text-align: center;
+				padding-top: 5px;
+			}
+			.confirm span{
+				font-family: "微软雅黑";
+				
+			}
+			#buttonbox{
+				width: 250px;
+				margin: 0 auto;
+			}
+			#button{
+				margin-top: 20px;
+				width: 250px;
+				height: 50px;
+				border-radius: 30px;
+				background-color: white;
+				border: none;
+				color: orange;
+				
+			}
+			
+			input::-webkit-input-placeholder {
+				font-size: 14px;
+				text-align: center;
+				color: white;
+			}
+			
+			.mui-content{
+				background-image: linear-gradient(to bottom right, red 35%, orange 65%);
+				height: 100%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="opacity: 0;">
+			<h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+
+			<div class="logo">
+
+				<img src="picture/logo.png" />
+
+			</div>
+
+			<form>
+				<div class="box">
+					昵称<input type="text" name="zcusername" id="newuser" value="" placeholder="请输入用户名" />
+				</div>
+				<div class="box">
+					账号<input type="text" name="usersid" id="usersid" value="" placeholder="请输入账号" />
+				</div>
+
+				<div class="box">
+					密码<input type="password" class="pwd" id="pwd" value="" placeholder="请输入密码" />
+				</div>
+
+				<div class="box">
+					确认密码<input type="password" name="pwd" id="pwd1" value="" onkeyup="validate()" placeholder="请再次确认密码" />
+
+				</div>
+				<div class="confirm">
+					<span id="tishi"></span>
+				</div>
+
+				<div class="box" id="user_reg">
+					邮箱<input type="text" id="useremail" name="username" value="" onblur="isEmail(this.value)" placeholder="请输入邮箱" />
+
+				</div>
+
+				<div class="">
+					<p id="test_user" style="text-align: center;"></p>
+				</div>
+
+				<div id="buttonbox">
+					<input type="button" value="注册" id="button" οnclick="check();">
+				</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+
+			function isEmail(strEmail) {
+				var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+				console.log(strEmail);
+				if(strEmail != null && strEmail.search(reg) != -1) {
+					document.getElementById("test_user").innerHTML = "<font color='green' size='4px'>√邮箱格式正确！</font>";
+				} else {
+					document.getElementById("test_user").innerHTML = "<font color='red' size='4px'>邮箱格式错误！</font>";
+				}
+			}
+
+			function validate() {
+
+				var pwd1 = document.getElementById("pwd").value;
+
+				var pwd2 = document.getElementById("pwd1").value;
+
+				if(pwd1 == pwd2)
+
+				{
+
+					document.getElementById("tishi").innerHTML = "<font color='green'>两次密码相同</font>";
+
+					document.getElementById("button").disabled = false;
+
+				} else {
+
+					document.getElementById("tishi").innerHTML = "<font color='red'>两次密码不相同</font>";
+
+					document.getElementById("button").disabled = true;
+
+				}
+
+			}
+ 
+			//发布
+			document.getElementById("button").addEventListener('tap', function() {
+				//获取各项输入值
+				var btnArray = ['否', '是'];
+				mui.confirm('是否注册？', '消息确认', btnArray, function(e) {
+					if(e.index == 1) 
+					{
+						var newuser = document.getElementById("newuser").value;
+						var usersid = document.getElementById("usersid").value;
+						var pwd = document.getElementById("pwd").value;
+						var useremail = document.getElementById("useremail").value;
+						console.log(usersid)
+						//确认发布
+						//设置传递给后端的地址
+						 var requrl2=localStorage.getItem("requrl2");
+						//ajax请求
+						console.log(requrl2);
+						mui.ajax(requrl2, {
+							//data封装需要传递的变量与变量值
+							data: {
+								rnum:15,//注册
+								newuser: newuser,//昵称
+								usersid: usersid,//账号
+								pwd: pwd,//密码
+								useremail: useremail//邮箱	
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+							//数据的处理
+							//注：date封装了后端传递回来的数据
+							success: function(data) {
+								if(data.result=="1")
+								{
+								//发布成功并且创建分组成功
+								mui.toast("注册成功!");
+								mui.openWindow({
+										url: 'index1.html'
+									});	
+								}
+								if(data.result=="2")
+								{
+								//发布成功并且创建分组成功
+								mui.toast("账号已注册!");
+								mui.openWindow({
+										url: 'login.html'
+									});	
+								}
+								
+							}
+						});
+                             
+					 } 				
+					else {
+						mui.toast('已取消');
+						
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>
+<!--if(data.addResult == "yes" && data.createResult == "yes") {
+									//断后台传递来的result变量是否为"yes" 跳转
+									localStorage.setItem("uid", data.uid);
+									mui.openWindow({
+										url: 'index1.html'
+									});
+								} else {
+									//吐司提示
+									mui.toast("服务器繁忙!");
+								}-->

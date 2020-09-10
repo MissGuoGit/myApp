@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		
+	</head>
+	<style type="text/css">
+		ul li{
+			
+			
+			height: 90px;
+			
+			
+			
+		}
+		
+		
+		.mui-content h2{
+			font-size: 25px;
+			font-family: "微软雅黑";
+			text-align: center;
+			
+		}
+		
+		 /*底部p标签*/
+       .footer-table p{
+       	margin: 0;
+       }
+        .left-table{
+        	height: 55px;
+        	width: 32%;
+        }
+        .mid-table{
+        	height: 55px;
+        	width: 36%;
+        }
+        .right-table{
+        	height: 55px;
+        	width: 32%;
+        }
+    	.footer-icon-img{
+    		height: 30px;
+        	width: 100%;
+    	}
+        .footer-icon-img img{
+        	display: block;
+        	margin: 0 auto;
+        	margin-top: 3px;
+        	height: 24px;
+        	width: 24px;
+        	/*margin-left:50px;
+        	margin-top: 2px;*/
+        /*	background-color: gold;*/
+        }
+        .footer-name{
+        	margin: 0;
+        	height: 25px;
+        	line-height: 25px;
+        	color: black;
+        	text-align: center;
+        	font-size: 16px;
+        }
+        .mui-content{
+			margin-bottom: 58px;
+		}
+		.big-title{
+			color: #333333;
+			font-size: 18px;
+			text-align: center;
+			margin-top: 15px;
+		}
+		header{
+			background-color:orange!important;
+		}
+		.mui-title{
+			color: white;
+		}
+		.mui-pull-left{
+			color: white;
+		}
+		.mui-content{
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的发布</h1>
+		</header>
+		<div class="mui-content">
+			<div id="my-lost">
+				
+			
+			<p class="big-title">我丢失的</p>
+			<div class="wdsd" >
+				<ul id="OA_task_1" class="mui-table-view" >
+					<!--<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle">
+						<h4>口红</h4>
+		    		<p>型号阿玛尼500，才用了一次 ，有好心人拾到请联系我</p>
+					</div>
+					</li>-->
+				</ul>
+			</div>
+			
+			</div>
+	
+			<div class="">
+	
+				<p class="big-title">我拾到的</p>
+				<div class="wsdd" >
+					<ul id="OA_task_2" class="mui-table-view" >
+						<!--<li class="mui-table-view-cell">
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red">删除</a>
+							</div>
+							<div class="mui-slider-handle">
+								<h4>钥匙</h4>
+				    		<p>一串钥匙，共有5把，今天早上拾到</p>
+							</div>
+						</li>-->
+					<ul/>
+				</div>
+			
+				
+				
+			</ul>
+			</div>
+		
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();	
+			var meberid=localStorage.getItem("meberid");
+			var requrl3=localStorage.getItem("requrl3");
+			console.log(meberid);
+			//分别加载我丢失的和我拾到的页面
+			 mui.ready(function(){
+			 	console.log("123");
+				mui.ajax(requrl3,{
+						data:{
+							meberid:meberid,
+							rnum:"20"
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(res){
+							//我发布的任务列表
+							var data=res.list1;
+							console.log(JSON.stringify(res));
+							console.log("111");
+							var itembox = document.getElementById("OA_task_1");
+							for (var i=0;i<data.length;i++) 
+							{
+						//我丢失的的zi字符串拼接的地方，用data. 
+						  		var itemhtml="<li data-id=" + data[i].id + " class='mui-table-view-cell'>";
+						  		itemhtml =+"<div class='mui-slider-right mui-disabled'>";
+						  		itemhtml =+"<a class='mui-btn mui-btn-red'>删除</a>";
+						  		itemhtml =+"</div>";
+						  		itemhtml =+"<div class='mui-slider-handle'>";
+						  		itemhtml =+"<h4>"+data[i].swname+"</h4>";
+						  		itemhtml =+"<p>"+data[i].swdescribe+"</p>";
+						  		itemhtml =+"</div>";
+						  		itemhtml =+"</li>";
+								var oldstr1=itembox.innerHTML;
+								var newstr1=oldstr1+itemhtml;
+								itembox.innerHTML=newstr1;
+								
+							}	
+							//我领取的任务列表
+							var data2=res.list2;
+							console.log(JSON.stringify(data2));
+							var item2box=document.getElementById("OA_task_2");
+								for(var i=0;i<data2.length;i++)
+								{
+									//我拾到的zi字符串拼接的地方，用data2.
+								var bb="<li data-id2=" + data2[i].id + " class='mui-table-view-cell'>";
+						  		bb =+"<div class='mui-slider-right mui-disabled'>";
+						  		bb =+"<a class='mui-btn mui-btn-red'>删除</a>";
+						  		bb =+"</div>";
+						  		bb =+"<div class='mui-slider-handle'>";
+						  		bb =+"<h4>"+data2[i].swname+"</h4>";
+						  		bb =+"<p>"+data2[i].swdescribe+"</p>";
+						  		bb =+"</div>";
+						  		bb =+"</li>";	
+								var oldstr=item2box.innerHTML;
+								var newstr=oldstr+bb;
+								item2box.innerHTML=newstr;
+								}
+							
+						}
+				});
+								
+			});
+			
+			//从数据库中删除此条记录
+			(function($) {
+				$.swipeoutOpen(el,direction)//打开指定列的滑动菜单，el:指定列的dom对象，direction：取值left|right，指定打开的是左侧或右侧滑动菜单
+				$.swipeoutClose(el);//关闭指定列的滑动菜单，el:指定列的dom对象
+								setTimeout(function() {
+									$.swipeoutOpen(document.getElementById("OA_task_1").querySelector('li:last-child'), 'left');
+									setTimeout(function() {
+										$.swipeoutClose(document.getElementById("OA_task_1").querySelector('li:last-child'));
+									}, 1000);
+								}, 1000);
+				//第一个demo，拖拽后显示操作图标，点击操作图标删除元素；
+				$('#OA_task_1').on('tap', '.mui-btn', function(event) {
+					var elem = this;
+					var currentid = this.getAttribute("data-id");
+				    console.log(currentid);
+					var li = elem.parentNode.parentNode;
+					mui.confirm('确认删除该条记录？', 'Hello MUI', btnArray, function(e) {
+						if (e.index == 0) {
+//							mui.ajax(requrl,{
+//							data:{
+//								id:currentid,
+//								rnum:"21"
+//							},
+//							dataType:'json',//服务器返回json格式数据
+//							type:'post',//HTTP请求类型
+//							timeout:10000,//超时时间设置为10秒；
+//							headers:{'Content-Type':'application/x-www-form-urlencoded'},
+//							success:function(res){	
+//							}
+							li.parentNode.removeChild(li);
+						} else {
+							setTimeout(function() {
+								$.swipeoutClose(li);
+							}, 0);
+						}
+					});
+				});
+				var btnArray = ['确认', '取消'];
+				$('#OA_task_2').on('tap', '.mui-btn', function(event) {
+					var elem = this;
+					var currentid2 = this.getAttribute("data-id2");
+					var li = elem.parentNode.parentNode;
+					mui.confirm('确认删除该条记录？', 'Hello MUI', btnArray, function(e) {
+						if (e.index == 0) {
+							li.parentNode.removeChild(li);//删除此列
+//							mui.ajax(requrl,{
+//							data:{
+//								id:currentid2,
+//								rnum:"21"
+//							},
+//							dataType:'json',//服务器返回json格式数据
+//							type:'post',//HTTP请求类型
+//							timeout:10000,//超时时间设置为10秒；
+//							headers:{'Content-Type':'application/x-www-form-urlencoded'},
+//							success:function(res){
+//								
+//							}
+							
+						} else {
+							setTimeout(function() {
+								$.swipeoutClose(li);
+							}, 0);
+						}
+					});
+				});
+				var btnArray = ['确认', '取消'];
+				//第二个demo，向左拖拽后显示操作图标，释放后自动触发的业务逻辑
+				
+				//第二个demo，向右拖拽后显示操作图标，释放后自动触发的业务逻辑
+				
+				
+			})(mui);
+			
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		.mui-control-content {
+			height: 500px;
+		}
+		
+		.mui-control-item {
+			background-color: ;
+		}
+		
+		.zt{
+			position: absolute;
+			right: 10px;
+			top: 23px;
+			/*//已完成绿色,未完成红色,待确定黄色*/
+		}
+		.mui-icon-left-nav{			
+			margin-top: 0px;
+			color: white;
+		}
+		.mui-bar-nav {
+			height: 44px;
+			background-color: orange;
+		}
+		.mui-content {
+         background-color: white;   
+        }
+        .mui-title{
+			color: white;
+			line-height: 44px;	
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		#main-wrapper{
+			height:calc(100% - 90px);
+			width: 100%;
+			background-image: url(img/top-nav3.jpg);
+			position: absolute;
+			top: 45px;
+			left: 0;
+			overflow-y: scroll;
+			
+		}
+		 .mui-segmented-control{
+			border: solid 1px orange!important;
+		}
+		.mui-segmented-control a{
+			border-right:solid 1px orange!important;
+		}
+		.top{
+			height: 50px;
+			line-height: 50px;
+			width: 95%;
+			
+		}
+		.segmentedControl a{
+			width: 30%;
+			text-decoration:none;
+			color: #333333;
+			padding-left: 15px; 
+		}
+		
+		#item3{
+			width: 90%;
+			margin: 0 auto;
+			border-top: solid 1px #EAEAEA;
+		}
+		.jifen p{
+			padding-top:15px;
+			color: #333333;
+			font-size: 17px;
+		}
+		#footer a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+        /*//底部选项卡的图片字体*/                           
+	   .mui-tab-label{
+	   	display: block; 
+	   	font-size: 12px;	
+	   	color: #CCCCCC;
+	   }
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+
+			<h1 class="mui-title"><b>任务中心</b></h1>
+		</header>
+		<div id="main-wrapper">
+			
+		<div class="top">
+			<div class="segmentedControl" class="mui-segmented-control" id="itom">
+				<a class="mui-control-item" href="#item1">发布的任务</a><span style="color: orange;padding-left: 10px;">|</span>
+				<a class="mui-control-item" href="#item2">领取的任务</a><span style="color: orange;padding-left: 10px;">|</span>
+				<a class="mui-control-item" href="#item3">我的积分</a>
+			</div>
+			
+		</div>
+			<div>
+				<div id="item1" class="mui-control-content mui-active">					
+							<ul class="mui-table-view" id="item1box1">
+								<!--<li class="mui-table-view-cell mui-media">
+									<a href="javascript:;">
+										<p class="zt">待确定</p>
+										<div class="mui-media-body">
+											高数B，十万火急！
+											<p class='mui-ellipsis'>找个小哥哥辅导高数，一个月伙食，我包了</p>
+										</div>
+									</a>
+								</li>-->
+							</ul>	
+								
+				</div>
+				<div id="item2" class="mui-control-content" >
+					<ul class="mui-table-view"  id="itembox2">
+						
+						<!--<li class="mui-table-view-cell mui-media">
+									<a href="javascript:;">
+										<p class="zt">已完成</p>
+										
+										<div class="mui-media-body">
+											十万火急！
+											<p class='mui-ellipsis'>找个小哥哥辅导高数，一个月伙食，我包了</p>
+										</div>
+									</a>
+						</li>
+						-->
+					</ul>
+				</div>
+				<div id="item3" class="mui-control-content">
+				<div class="jifen">
+					<p>你的积分为550分</p>
+					<p>排名第4名</p>
+					<p>距离上一排名还差11分</p>
+				</div>
+				</div>
+			
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<a class="mui-tab-item mui-active" id="lqrw">
+				<img src="img/bangyibang1-1.png"/>
+				<span class="mui-tab-label">领取任务</span>
+			</a>
+			<a class="mui-tab-item" id="fbrw">
+				<img src="img/bangyibang2-1.png"/>
+				<span class="mui-tab-label">发布任务</span>
+			</a>
+			<a class="mui-tab-item" id="pxb">
+				<img src="img/bangyibang3-1.png"/>
+				<span class="mui-tab-label">排行榜</span>
+			</a>
+			<a class="mui-tab-item" id="rwzx">
+				<img src="img/bangyibang4-2.png"/>
+				<span class="mui-tab-label">任务中心</span>
+			</a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			//获取参数
+			//点击a标签给它加样式
+			var item1=document.getElementById("itom").childNodes[1];
+			var item4=document.getElementById("itom").childNodes[4];
+			var item7=document.getElementById("itom").childNodes[7]; 
+			console.log(item7.innerHTML); 
+			mui(".segmentedControl").on("tap","a",function(){
+				var that=this;
+				switch (that.innerHTML){
+					case "发布的任务":that.style.color="orange";item4.style.color="#333333";item7.style.color="#333333";
+						break;
+					case "领取的任务":that.style.color="orange";item1.style.color="#333333";item7.style.color="#333333";
+						break;
+					case "我的积分":that.style.color="orange";item1.style.color="#333333";item4.style.color="#333333";
+						break;
+					default:
+						break;
+				}
+				
+			});
+			//页面刷新事件
+			window.addEventListener('reloadpage', function(event) {
+				location.reload();
+			});
+			
+			 var meberid=localStorage.getItem("meberid");
+						console.log(meberid);
+			 var requrl=localStorage.getItem("requrl"); 
+			 mui.ready(function(){
+			 	console.log("123");
+				mui.ajax(requrl,{
+						data:{
+							meberid:meberid,
+							rnum:"6"
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(res){
+							//我发布的任务列表
+							var data=res.list1;
+							console.log(JSON.stringify(res));
+							console.log("111");
+							var itembox = document.body.querySelector('#item1box1');
+							for (var i=0;i<data.length;i++) 
+							{
+								if(data[i].iswc!=null)
+								{
+									switch(data[i].iswc)
+									{
+										case "1":data[i].iswc="未完成";break; 
+										case "2":data[i].iswc="待确定";break;
+										case "3":data[i].iswc="已完成";break;
+										
+									}
+								}
+								var titlestr="";
+								if(data[i].neirong.length>15)
+								{
+									titlestr=data[i].neirong.substr(0,15)+"......";
+								}
+								else
+								{
+									titlestr=data[i].neirong;
+								}
+//							var itemhtml = "<li data-id=" + data[i].id + " class='mui-table-view-cell mui-media' id='li-heigh'><a href=''><p id='sj'>" + data[i].iswc + "</p>" + data[i].zhuti + "<div class='mui-media-body'><p class='mui-ellipsis'>" + titlestr + "</p></div></a></li>";
+				         
+						  		var itemhtml="<li class='mui-table-view-cell mui-media'data-id1="+data[i].id+">";
+						  		itemhtml+="<a href='javascript:;'>";
+						  		itemhtml+="<p class='zt'>"+data[i].iswc+"</p>";
+						  		itemhtml+="<div class='mui-media-body'>"+data[i].zhuti;
+						  		itemhtml+="<p class='mui-ellipsis'>"+titlestr+"</p>";
+						  		itemhtml+="</div>";
+						  		itemhtml+="</a>";
+								itemhtml+="</li>";
+								
+								
+								var oldhtml=itembox.innerHTML;
+								var newhtml= oldhtml+itemhtml;
+								itembox.innerHTML=newhtml;
+								changecolor();
+							}	
+							//我领取的任务列表
+							var data2=res.list2;
+							console.log(JSON.stringify(data2));
+							var item2box=document.getElementById("itembox2");
+								for(j=0;j<data2.length;j++)
+								{
+									if(data2[j].iswc!=null)
+									{
+										switch(data2[j].iswc)
+										{
+											case "1":data2[j].iswc="未完成";break; 
+											case "2":data2[j].iswc="待确定";break;
+											case "3":data2[j].iswc="已完成";break;
+											
+										}
+									}
+								var titlestr2="";
+								if(data2[j].neirong.length>15)
+									{
+										titlestr2=data2[j].neirong.substr(0,15)+"......";
+									}
+									else
+									{
+										titlestr2=data2[j].neirong;
+									}
+									var bb="<li class='mui-table-view-cell mui-media' data-id2="+data2[j].id+">";
+										bb+="<a href='javascript:;'>";
+										bb+="<p class='zt'>"+data2[j].iswc+"</p>";
+										bb+="<div class='mui-media-body'>"+data2[j].zhuti;
+										bb+="<p class='mui-ellipsis'>"+titlestr2+"</p>";
+										bb+="</div>";
+										bb+="</a>";
+										bb+="</li>";
+									var oldstr=item2box.innerHTML;
+									var newstr=oldstr+bb;
+									item2box.innerHTML=newstr;
+									changecolor();
+								}
+							
+						}
+				});
+								
+			});
+			//跳转详情，因为是用动态加载的li，所以，以委托的方式找到他的父亲ul，然后传递给li
+			mui("#item1box1").on("tap", "li", function() {
+				var currentid2 = this.getAttribute("data-id1");
+				console.log(currentid2);
+				mui.openWindow({
+					url: "help42.html",
+					id: "help42.html",
+					extras: {
+						mytasksid2: currentid2
+					}
+
+				});
+
+			});
+			mui("#itembox2").on("tap", "li", function() {
+				var currentid = this.getAttribute("data-id2");
+				console.log(currentid);
+				mui.openWindow({
+					url: "help41.html",
+					id: "help41.html",
+					extras: {
+						mytasksid: currentid
+					}
+
+				});
+
+			});	
+		
+			
+			//打开页面跳转
+			document.querySelector('#lqrw').addEventListener('tap',function () {
+			      mui.openWindow('help1.html','help1',{})  
+			})
+			document.querySelector('#fbrw').addEventListener('tap',function () {
+			        mui.openWindow('help2.html','help2',{})
+			})
+			document.querySelector('#pxb').addEventListener('tap',function () {
+			      mui.openWindow('help3.html','help3',{})  
+			})
+			document.querySelector('#rwzx').addEventListener('tap',function () {
+			        mui.openWindow('help4.html','help4',{})
+			}) 
+			
+			//不同状态不同颜色
+			function changecolor(){
+				var list=document.getElementsByClassName("zt");
+			    for (var i=0;i<list.length;i++) {
+				if(list[i].innerHTML=="已完成")
+				{
+					list[i].style.color="green";
+				}
+				
+				if(list[i].innerHTML=="未完成")
+				{
+					list[i].style.color="red";
+				}
+				
+				if(list[i].innerHTML=="待确定")
+				{
+					list[i].style.color="orange";
+				}
+
+			}
+			}
+			
+					
+		</script>
+	</body>
+</html>

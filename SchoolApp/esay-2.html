@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			p {
+				margin-top: 6px;
+			}
+			
+			p:last-child {
+				margin-left: 170px;
+			}
+			
+			#tabbox a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+		   .mui-tab-label{
+		   	display: block; 
+		   	font-size: 12px;	
+		   	color: #CCCCCC;
+		   }
+		   header {
+				background-color: orange!important;
+			}
+			
+			header h1 {
+				color: white!important;
+			}
+			
+			.mui-icon-left-nav {
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">生活偶尔不如意，笑笑更开心！</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab" id="tabbox">
+			<a class="mui-tab-item" href="esay-1.html">
+				<img src="img/wanf 1-1.png"/>
+				<span class="mui-tab-label">搞笑趣图</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="esay-2.html">
+				<img src="img/wanf2-2.png"/>
+				<span class="mui-tab-label">哈哈趣闻</span>
+			</a>
+			<a class="mui-tab-item" href="esay-3.html">
+				<img src="img/wanf3-1.png"/>
+				<span class="mui-tab-label">笑话段子</span>
+			</a>
+		</nav>
+
+		<div class="mui-content">
+			<!--轮播-->
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/GIF3.gif">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/muwu.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/GIF3.gif">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/GIF3.gif">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--列表详情-->
+			<ul class="mui-table-view" id="itembox">
+
+				<!--<li class="mui-table-view-cell mui-media">
+					<a href="easy2-xiangqing.html">
+						<img class="mui-media-object mui-pull-left" src="img/blue3.jpg" width="50" height="50">
+						<div class="mui-media-body">
+							杨紫为何荡秋千只拍上半身？
+							<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+							<p style="padding-top: 5px;">上传时间：19-10-2</p>
+						</div>
+					</a>
+				</li>-->
+
+			</ul>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var slider=mui("#slider");
+			slider.slider({
+				interval:2000
+			});
+			
+			
+			mui("#tabbox").on("tap", ".mui-tab-item", function() {
+				var that = this;
+				var tempurl = that.href;
+				mui.openWindow({
+					url: tempurl
+				});
+			});
+
+			//
+			mui.ready(function() {
+				var requrl4=localStorage.getItem("requrl4");
+				var requrl2=localStorage.getItem("requrl2");
+				mui.ajax(requrl2, {
+					data: {
+						rnum: "9", //请求后端对应的处理
+						typeid: "2" //easy-2第二个板块
+						//p:1	//请求页码
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					success: function(data) {
+						console.log(JSON.stringify(data)); //打印输出获取到的json格式的数据
+
+						//向ul里面填充数据，加在对应的地方显示
+						var itembox = document.getElementById("itembox");
+						for(var i = 0; i < data.length; i++) {
+							var li = document.createElement('li');
+								li.className = 'mui-table-view-cell mui-media';
+							var lihtml= "<a href='javascript:;'>";
+							lihtml += "<img class='mui-media-object mui-pull-left' src='"+requrl4+data[i].imgurl + "'/>";
+							lihtml += "<div class='mui-media-body'>" + data[i].HHtitle;
+							lihtml += "<p class='mui-ellipsis'>" + data[i].HHcontains1 + "</p>";
+							lihtml += "<p style='padding-top: 5px;'>上传时间：" + data[i].HHtime + "</p>";
+							lihtml += "</div>";
+							lihtml += "</a>";	
+								li.innerHTML = lihtml;
+								li.id=data[i].id;
+								itembox.appendChild(li);//新纪录插到最前面；
+//							var oldhtml = itembox.innerHTML;
+//							var newhtml = oldhtml + lihtml;
+//							itembox.innerHTML = newhtml;
+						} 
+
+					}
+				});
+				mui("#itembox").on("tap","li",function(){
+					var currentid=this.id;
+					console.log(currentid);
+					mui.openWindow({
+				    	url:"easy2-xiangqing.html",
+//				    	id:"xingzuoview",//传的是对应的详情的id
+				    	extras:{
+						   newsid:currentid
+						},
+					});
+					
+				});
+					
+			});
+		</script>
+	</body>
+</html>

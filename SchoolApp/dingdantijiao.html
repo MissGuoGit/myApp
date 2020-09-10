@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,body{
+				widows: 100%;
+			}
+			
+			#tijiaokuang {
+				background-image: linear-gradient(to bottom right, red 50%, orange);
+				width: 100%;
+				height: 200px;
+				
+			}
+			
+			#dza option {
+				width: 150px;
+			}
+			
+			.dzk {
+				width: 120px!important;
+				border: solid 1px red;
+				position: absolute;
+				left: 150px;
+			}
+			
+			.fuxuan {
+				height: 30px;
+				line-height: 15px;
+			}
+			
+			#ldh {
+				width: 80px!important;
+				border: solid 1px red;
+				position: absolute;
+				left: 150px;
+			}
+			
+			#ceng {
+				width: 80px!important;
+				border: solid 1px red;
+				position: absolute;
+				left: 240px;
+			}
+			
+			#confirmBtn {
+				float: right;
+				margin-right: 20px;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				color: white;
+				border: solid 1px orange;
+				box-shadow: 5px 5px 5px #bebebe;
+				background-color: orange;
+			}
+			
+			#chetu{
+				width: 150px;
+				height: 150px;
+				margin-left: 120px;
+				margin-top: 30px;
+			}
+			
+			#dingzi{
+				font-size: 20px;
+				font-weight: 800;
+				text-align: center;
+				margin-top: -13px;
+				color: ghostwhite;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单创建</h1>
+		</header>
+
+		<div id="tijiaokuang">
+			<img src="imgs/cart- full.png"/ id="chetu">
+			<p id="dingzi">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大侠，可帮我取快递乎？</p>
+		</div>
+
+		<form class="mui-input-group">
+			<div class="mui-input-row">
+				<label>取货地址</label>
+				<select name="dizhi" class="dzk" id="kuaididian">
+					<option>九栋1号店天天</option>
+					<option>九栋1号店天猫</option>
+					<option>九栋2号店</option>
+					<option>联通苏宁</option>
+					<option>北门圆通</option>
+					<option>北门百世</option>
+					<option>西门韵达</option>
+					<option>学姐水果店</option>
+				</select>
+			</div>
+
+			<div class="mui-input-row">
+				<label>送货地址</label>
+				<select name="loudong" id="ldh">
+					<option>C1</option>
+					<option>C2</option>
+					<option>C3</option>
+					<option>C4</option>
+					<option>C5</option>
+					<option>C6</option>
+					<option>C7</option>
+					<option>C8</option>
+					<option>C9</option>
+					<option>C10</option>
+					<option>C11</option>
+					<option>C12</option>
+					<option>C13</option>
+					<option>G4</option>
+					<option>G5</option>
+				</select>
+
+				<select name="loudong" id="ceng">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+					<option>13</option>
+					<option>14</option>
+					<option>15</option>
+					<option>16</option>
+					<option>17</option>
+					<option>18</option>
+					<option>19</option>
+					<option>20</option>
+					<option>21</option>
+					<option>22</option>
+				</select>
+
+				<div class="mui-input-row">
+					<label>快递种类</label>
+					<input type="checkbox" class="mui-input-clear" placeholder="input">
+				</div>
+			</div>
+			<div class="mui-card">
+				<form class="mui-input-group">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>重型</label>
+						<input name="aa" value="zl1" type="checkbox" id="zhongxing">
+					</div>
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>大型</label>
+						<input name="aa" value="zl2" type="checkbox" id="daxing">
+					</div>
+
+					<div class="mui-input-row" >
+						<label>心理价位</label>
+						<input type="text" id="jiawei" placeholder="请输入金额">
+					</div>
+
+				</form>
+
+				<button id='confirmBtn' type="button" class="mui-btn mui-btn-blue mui-btn-outlined">提交订单</button>
+
+				<script src="js/mui.min.js"></script>
+				<script type="text/javascript">
+					mui.init()
+					//			
+					document.getElementById("confirmBtn").addEventListener('tap', function() {
+						var zhongxing ="轻型";
+						var daxing ="小型";
+						var btnArray = ['否', '是'];
+						mui.confirm('是否提交订单，确认？', '笑一笑', btnArray, function(e) {
+							if(e.index == 1) {
+								var v1 = 0;
+								if(document.getElementById("zhongxing").checked) {
+									v1 = 1;
+									zhongxing = "重型";
+								}
+								//						console.log(v1);
+								var v2 = 0;
+								if(document.getElementById("daxing").checked) {
+									v2 = 1;
+									daxing = "大型";
+								}
+
+								var frist = document.getElementById("kuaididian");
+								var kuaidi = frist.selectedIndex;
+								var kuaididian = frist.options[kuaidi].value;
+								var second = document.getElementById("ldh");
+								var loudong = second.selectedIndex;
+								var ldh = second.options[loudong].value;
+								var third = document.getElementById("ceng");
+								var cen = third.selectedIndex;
+								var ceng = third.options[cen].value;
+								var jiawei = document.getElementById("jiawei").value;
+								console.log(daxing);
+								
+								//设置传递给后端的地址
+						 var requrl2=localStorage.getItem("requrl2");
+						//ajax请求
+						mui.ajax(requrl2, {
+							//data封装需要传递的变量与变量值
+							data: {
+								rnum:"17",
+								kuaididian:kuaididian,
+								ldh:ldh,
+								ceng:ceng,
+								daxing:daxing,
+								zhongxing:zhongxing,
+								jiawei:jiawei,
+								//暂时不传递：性别
+//								endTime:endTime
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							//数据的处理
+							//注：date封装了后端传递回来的数据
+//							
+						});
+
+								mui.toast('提交成功！')
+								mui.openWindow({
+									url: "kuaidijiedan.html"
+								});
+						}//if点击确定执行的 
+							else 
+							{
+								mui.toast('已取消')
+							}
+					});
+					});
+					
+				</script>
+
+				
+
+	</body>
+
+</html>

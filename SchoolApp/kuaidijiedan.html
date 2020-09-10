@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#lbfd {
+				float: top;
+			}
+			
+			#jh {
+				width: 26px;
+				position: absolute;
+				right: 15px;
+				top: 10px;
+				
+			}
+			
+			.liebiaob {
+				list-style: none;
+				height: 100px;
+				border: solid 1px #D0D0D0;
+				position: relative;
+				background-color: #FFFFFF;
+				border-radius: 5px;
+			}
+			
+			.jine {
+				width: 70px;
+				height: 70px;
+				background-color: #ff8000;
+				position: absolute;
+				left: 20px;
+				top: 12.5px;
+				border-radius: 10px;
+			}
+			
+			.jine p {
+				padding-top: 24px;
+				margin-left: 10px;
+				font-size: 35px;
+				color: white;
+				font-weight: bolder;
+			}
+			
+			.xinxi {
+				position: absolute;
+				padding-top: 12px;
+				padding-left: 120px;
+				/*line-height: 14px;*/
+			}
+			
+			.xinxi p {
+				list-style: none;
+				line-height: 16px;
+				color: black;
+				font-size: 20px;
+			}
+			
+			#wode{
+				width: 60px;
+				height: 60px;
+				border-radius: 25px;
+				background-color: #FFFFFF;
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				box-shadow: 10px 10px 5px #bebebe;
+			}
+			
+			#tututu{
+				margin-top: 10px;
+				margin-left: 10px;
+				width: 40px;
+			}
+			.mui-icon-left-nav {
+				color: orange!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">快递单号</h1>
+			<a href="dingdantijiao.html">
+				<a href="dingdantijiao.html"><img src="imgs/jiahao.png" id="jh"/></span></a>
+		</header>
+
+		<div class="mui-content">
+			<div id="lbfd">
+
+				<div id="liebiao">
+					<ul id="ulul">
+						<!--<li class="liebiaob">
+							<div class="jine">
+								<p class="jinqian">5元</p>
+							</div>
+							<div class="xinxi">
+								<ul>
+									<li>取货地址：<span id="quhuo">XXXX</span></li>
+									<li>送货地址：<span id="songhuo">XXXX</span></li>
+									<li>货物类型：<span id="leixing">XXXX</span></li>
+								</ul>
+							</div>
+						</li>
+						-->
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="wode">
+			<a href="wodedingdan.html"><img src="imgs/10.png"/ id="tututu"></a>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		
+		
+		<script type="text/javascript">
+			mui.init();
+			
+			 var requrl2=localStorage.getItem("requrl2");
+			
+			mui.ready(function(){
+					mui.ajax(requrl2,{
+						data:{
+							rnum:"18"
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							console.log(JSON.stringify(data));
+							var itembox = document.getElementById("ulul");
+							for(var i=0;i<data.length;i++){
+							var newli="<li class='liebiaob' data-id1="+data[i].id+">"
+								newli+= "<div class='jine'>";
+								newli+= "<p class='jinqian'>"+data[i].jiawei+"元</p>";
+								newli+= "</div>";
+								newli+= "<div class='xinxi'>";							
+								newli+= "<p>取货地址：<span id='quhuo'>"+data[i].kuaididian+"</span></p>";
+								newli+= "<p>送货地址：<span id='songhuo'>"+data[i].ldh+"-"+data[i].ceng+"</span></p>";
+								newli+= "<p>货物类型：<span id='leixing'>"+data[i].daxing+"/"+data[i].zhongxing+"</span></p>";								
+								newli+= "</div>";
+								newli+= "</li>";
+								var oldhtml2 = itembox.innerHTML;
+							    var newhtml2 = oldhtml2 + newli;
+							    itembox.innerHTML = newhtml2;
+							};					
+						}
+					});
+				});
+
+				mui('#ulul').on('tap','li',function(){
+					var aa=this.getAttribute("data-id1");;
+					console.log(aa);
+					mui.openWindow({
+						url:"dingdanxiangxi.html",
+						id:"dingdanxiangxi",
+						extras:{
+							kuaiid:aa
+						}
+					})
+				});
+				
+				
+				
+			</script>
+	</body>
+</html>

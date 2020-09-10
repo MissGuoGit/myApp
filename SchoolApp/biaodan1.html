@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		.mui-content ul li {
+			list-style: none;
+			height: 70px;
+			margin-top: 5px;
+			font-size: 17px;
+			font-family: "微软雅黑";
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		
+		#picbutton {
+			background-color: orange;
+			color: #eee;
+			font-family: "微软雅黑";
+			height: 35px;
+			width: 100px;
+			margin-left: 10px;
+		}
+		#selectedpicbox{
+			height: 160px; 
+			width: 160px;
+			border: none;
+			margin-left: 10px;
+			margin-top: 10px;
+			position: absolute;
+			
+		}
+		
+		#showimgbox {
+			height: 150px;
+			width: 150px;
+			border: 1px solid #CCCCCC;
+			position: relative;
+			top: 10px;
+			left: 10px;
+			bottom: 10px;
+			
+		
+		}
+		
+		#text1 {
+			border-left: none;
+			border-right: none;
+			border-radius: 0;
+		}
+		
+		#text2 {
+			border-left: none;
+			border-right: none;
+			border-radius: 0;
+		}
+		
+		#text3 {
+			border-left: none;
+			border-right: none;
+			border-radius: 0;
+		}
+		
+		#confirmBtn {
+			background-color: orange;
+			border: solid 1px orange;
+		}
+		.mui-pull-left{
+			color: orange;
+		}
+	</style>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">失物招领</h1>
+		</header>
+
+		<div class="mui-content">
+			
+			<div class="rightbox" id="item2">
+				<ul>
+				<li>物品名称:<input type="text" name="text1" id="text1" value="" /></li>
+				<li>物品描述:<input type="text" name="text2" id="text2" value="" /></li>
+				<li>发现地点:<input type="text" name="text3" id="text3" value="" /></li>
+
+				<li style="height: 120px;">您的联系方式:
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>Tel:</label>
+							<input type="text" placeholder="" id="tel">
+						</div>
+						<div class="mui-input-row">
+							<label>QQ：</label>
+							<input type="text" placeholder="" id="qq">
+						</div>
+					</form>
+				</li>
+
+			</ul>
+
+			<div>
+				<input type="button" name="picbutton" id="picbutton" value="上传图片" />
+			</div>
+				
+				<div class="selectedpicbox">
+					<img src="" id="showimgbox" />
+				</div>
+			
+			<p style="color: red;margin-left: 10px;margin-right: 10px;margin-top: 10px;">为避免冒领情况，请您在对物品进行描述的时候不要将所有细节填写</p>
+
+			<button type="button" id="confirmBtn" class="mui-btn mui-btn-primary mui-btn-block">确认发布</button>
+
+			</div>
+			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var meberid=localStorage.getItem("meberid");
+			console.log(meberid);
+			document.getElementById('picbutton').addEventListener('tap', function() {
+
+				console.log("111");
+				if(mui.os.plus) {
+					var buttonTit = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 2:
+								galleryImg(); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+						console.log("222");
+					})
+				}
+			}, false);
+
+			// 拍照获取图片
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						//var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径            	
+						setHtml(entry.toLocalURL());
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/camera/"
+				})
+			}
+
+			// 从相册中选择图片 
+			function galleryImg() {
+				// 从相册中选择图片
+				plus.gallery.pick(function(e) {
+					for(var i in e.files) {
+						var fileSrc = e.files[i]
+						setHtml(fileSrc);
+					}
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					maximum: 1,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择1张图片');
+					}
+				});
+			}
+
+			function setHtml(imgurl) {
+				document.getElementById("showimgbox").src = imgurl;
+			}
+
+			document.getElementById("confirmBtn").addEventListener("tap", function() {
+				uploadimg();
+			});
+
+			function uploadimg() {
+				var filepath = document.getElementById("showimgbox").src;
+				console.log(filepath);
+				plus.zip.compressImage({
+						src: filepath,
+						dst: '_doc/zip_' + filepath.substr(filepath.lastIndexOf('/') + 1),
+						quality: 10, //质量1-100	
+						overwrite: true,
+						width: "10%", //缩小到原来的25%			
+						height: "10%" //缩小到原来的25%		
+					},
+					function(event) {
+						//console.log("<=====压缩文件路径=====>"+event.target);			
+						//console.log("<=====压缩后的大小=====>"+event.size);//除1024单位为K
+						//console.log("<=====压缩后的宽度=====>"+event.width);			
+						//console.log("<=====压缩后的高度=====>"+event.height);
+						convertImgToBase64(event.target, function(base64Img) {
+							//console.log("==================");
+							var isstartblob = true; //开始标记
+							var isendblob = false; //结束标记
+							var i = 0; //循环次数
+							var issend = true;
+							var str = base64Img; //图片64位编码后的数据
+							console.log(str);
+
+							var name = document.getElementById("text1").value;
+							var describe = document.getElementById("text2").value;
+							var place = document.getElementById("text3").value;
+							var tel = document.getElementById("tel").value;
+							var qq = document.getElementById("qq").value;
+
+							var requrl3=localStorage.getItem("requrl3");
+							mui.ajax(requrl3, {
+								data: {
+									meberid:meberid,
+									rnum: "14",
+									imgtxt: str,
+									swname: name,
+									swdescribe: describe,
+									swplace: place,
+									swtel: tel,
+									swqq: qq,
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+								success: function(data) {
+									mui.toast("上传成功!");
+									console.log(JSON.stringify(data));
+								}
+							});
+
+						});
+
+					},
+					function(error) {
+						console.log("压缩失败:" + error.message);
+					}
+				)
+				var btnArray = ['确认', '继续编辑'];
+				mui.confirm('确认发布吗？', '', btnArray, function(e) {
+					if(e.index == 1) {
+
+					} else {
+
+						mui.toast("正在跳转到首页");
+						mui.openWindow({
+							url: "sw.html",
+
+						})
+
+					}
+				});
+			}
+
+			function convertImgToBase64(url, callback, outputFormat) {
+				var canvas = document.createElement('CANVAS'),
+					　　ctx = canvas.getContext('2d'),
+					img = new Image;　
+				img.crossOrigin = 'Anonymous';
+				img.onload = function() {　　
+					canvas.height = img.height;　　
+					canvas.width = img.width;　　
+					ctx.drawImage(img, 0, 0);　　
+					var dataURL = canvas.toDataURL(outputFormat || 'image/png');　　
+					callback.call(this, dataURL);　　
+					canvas = null;
+				};　　
+				img.src = url;
+			}
+		</script>
+	</body>
+
+</html>

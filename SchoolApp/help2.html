@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.zhutie {}
+		
+		#ztbox {
+			margin: auto;
+		}
+		.mui-icon-left-nav{			
+			margin-top: 0px;
+			color: white;
+		}
+		.mui-bar-nav {
+			height: 44px;
+			background-color: orange;
+		}
+		
+        .mui-title{
+			color: white;
+			line-height: 44px;
+			
+		}
+		.zhutie{
+			margin: 15px 15px auto;
+			font-size: 18px;
+		}
+		.mainbox{
+			margin: 15px 15px 15px 15px ;
+			
+		}
+		#zhuti{
+			color: #000000;
+		
+		}
+		#neirong{
+			/*border:1px solid black;*/
+			border-radius:5px;
+			height: 180px;
+			margin-top: 5px;
+		}
+		
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		#main-wrapper{
+			height:calc(100% - 90px);
+			width: 100%;
+			background-image: url(img/top-nav3.jpg);
+			position: absolute;
+			top: 45px;
+			left: 0;
+			overflow-y: scroll;
+		}
+		#tbqrfb{
+			background-color: orange;
+			color: white;
+			border: solid 1px orange;
+		}
+		#footer a img{
+		   	width: 26px;
+		   	height: 25px;
+		   	margin-top: 5px;
+		   }
+        /*//底部选项卡的图片字体*/                           
+	   .mui-tab-label{
+	   	display: block; 
+	   	font-size: 12px;	
+	   	color: #CCCCCC;
+	   }
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">发布任务</h1>
+		</header>
+		
+		<div id="main-wrapper">
+				
+			<div class="mainbox">
+				<div class="mui-content-padded" style="margin: 5px;">
+
+				<p class="zhutie">主题：</p>
+				<div class="mui-input-row mui-title" id="ztbox">
+					<input type="text" class="mui-input-title" value="" id="zhuti">
+				</div>
+				<p class="zhutie">内容：</p>
+				<form class="mui-input-group">
+
+					<div class="mui-input-row" style="height: 180px;">
+						
+						<p><textarea placeholder="请输入内容" id="neirong"></textarea></p>
+					</div>
+
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="return false;" id="tbqrfb">确认</button>&nbsp;&nbsp;
+						<button type="reset" class="mui-btn mui-btn-danger" onclick="return false;">重填</button>
+					</div>
+				</form>
+			</div>
+			</div>
+			
+		</div>
+		
+			
+			
+		<nav class="mui-bar mui-bar-tab" id="footer">
+			<a class="mui-tab-item mui-active" id="lqrw">
+				<img src="img/bangyibang1-1.png"/>
+				<span class="mui-tab-label">领取任务</span>
+			</a>
+			<a class="mui-tab-item" id="fbrw">
+				<img src="img/bangyibang2-2.png"/>
+				<span class="mui-tab-label">发布任务</span>
+			</a>
+			<a class="mui-tab-item" id="pxb">
+				<img src="img/bangyibang3-1.png"/>
+				<span class="mui-tab-label">排行榜</span>
+			</a>
+			<a class="mui-tab-item" id="rwzx">
+				<img src="img/bangyibang4-1.png"/>
+				<span class="mui-tab-label">任务中心</span>
+			</a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			//参数传递
+			var help1 = null;
+			var help4 = null;
+			mui.ready(function() {
+				
+						var meberid=localStorage.getItem("meberid");
+						console.log(meberid);
+						document.getElementById('tbqrfb').addEventListener('tap', function() {
+
+							//var meberid=localStorage.getItem("meberid");//获取存储在首页的登录id	
+							var zhuti = document.getElementById("zhuti").value;
+							var neirong = document.getElementById("neirong").value;
+							//          var zhuti=document.getElementById("zhuti").value;
+							var requrl = localStorage.getItem("requrl");
+							if(!zhuti.length > 0) {
+								plus.nativeUI.toast('主题不能为空');
+								document.getElementById("zhuti").focus();
+								return false;
+							}
+							if(!neirong.length > 0) {
+								plus.nativeUI.toast('内容不能为空');
+								document.getElementById("neirong").focus();
+								return false;
+							}
+								mui.ajax(requrl, {
+									data: {
+										meberid: meberid, //模拟
+										rnum: "5",
+										zhuti: zhuti,
+										neirong: neirong
+
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'post', //HTTP请求类型
+					                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+								
+									success: function(data) {
+										console.log("122");
+										plus.nativeUI.toast('发布成功');
+//										var ws = plus.webview.currentWebview();
+//										plus.webview.close(ws);
+//										var help2 = plus.webview.getWebviewById('help2');
+//										plus.webview.close(help2);
+//										var help1 = plus.webview.getWebviewById('help1');
+//										plus.webview.close(help1);
+//										var help4 = plus.webview.getWebviewById('help4');
+//										plus.webview.close(help4);
+//										mui.openWindow('help4.html','help4',{})
+//										mui.openWindow('help1.html','help1',{})
+										//返回刷新help4页面
+										if(!help1) {
+											help1 = plus.webview.getWebviewById('help1');
+										}
+										mui.fire(help1, 'reloadpage', {});
+										if(!help4) {
+											help4 = plus.webview.getWebviewById('help4');
+										}
+										mui.fire(help4, 'reloadpage', {});
+										var bb = plus.webview.currentWebview();
+										plus.webview.close(bb);
+										//返回刷新help1页面
+										
+										
+									}
+								})
+							});
+						});
+
+						//页面跳转
+						document.querySelector('#lqrw').addEventListener('tap', function() {
+							mui.openWindow('help1.html', 'help1', {})
+						})
+						document.querySelector('#fbrw').addEventListener('tap', function() {
+							mui.openWindow('help2.html', 'help2', {})
+						})
+						document.querySelector('#pxb').addEventListener('tap', function() {
+							mui.openWindow('help3.html', 'help3', {})
+						})
+						document.querySelector('#rwzx').addEventListener('tap', function() {
+							mui.openWindow('help4.html', 'help4', {})
+						})
+		</script>
+	</body>
+
+</html>

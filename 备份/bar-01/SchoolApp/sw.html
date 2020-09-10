@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		
+		
+		.list{
+			
+			background-color: white;
+			height: 110px;
+			margin-top: 10px;
+			position: relative;
+			border-radius:13px ;
+			
+			
+			
+		}
+		
+		.list-left{
+			height: 100px;
+			width: 100px;
+			
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			
+			border-radius:10px;
+				
+		}
+		
+		.list-right{
+			height: 100px;
+			width: 68%;
+			background-color: orange;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			border-radius:10px;
+		}
+		
+		.list-left img{
+			width: 100%;
+			height: 100%;
+			border-radius:10px;
+		}
+		
+		.list-right h3{
+			text-align: center;
+			color: white;
+		}
+		
+		.list-right p{
+			font-family: "微软雅黑";
+			width: 95%;
+			text-indent:2em ;
+			padding-left: 5%;
+			color: white;
+		}
+		.mui-btn-primary{
+				position: fixed !important;
+				right: 5px;
+				background-color: orange;
+				border: solid 1px wheat;
+			}
+			
+		        *{
+			padding: 0;
+			margin: 0;
+		}
+		.page-bottom{
+			height: 55px;
+			width: 100%;
+			position:fixed;
+			bottom: 0px;
+			z-index: 100;
+			background-color: #F7F7F7;
+			border-top:solid 1px #AAAAAA ;
+        }
+        .footer-table{
+        	float: left;
+        	text-decoration: none;
+        	
+        }
+        
+        /*底部p标签*/
+       .footer-table p{
+       	margin: 0;
+       }
+        .left-table{
+        	height: 55px;
+        	width: 32%;
+        }
+        .mid-table{
+        	height: 55px;
+        	width: 36%;
+        }
+        .right-table{
+        	height: 55px;
+        	width: 32%;
+        }
+    	.footer-icon-img{
+    		height: 30px;
+        	width: 100%;
+    	}
+        .footer-icon-img img{
+        	display: block;
+        	margin: 0 auto;
+        	margin-top: 3px;
+        	height: 24px;
+        	width: 24px;
+        	/*margin-left:50px;
+        	margin-top: 2px;*/
+        /*	background-color: gold;*/
+        }
+        .footer-name{
+        	margin: 0;
+        	height: 25px;
+        	line-height: 25px;
+        	color: black;
+        	text-align: center;
+        	font-size: 16px;
+        }
+        .mui-content{
+			margin-bottom: 58px;
+		}
+		
+	</style>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: orange;"></a>
+		    <h1 class="mui-title">失物招领</h1>
+		    <button type="button" class="mui-btn mui-btn-primary" data-loading-text = "提交中" data-loading-icon-position="right" onclick="location.href='biaodan1.html'">发布</button>
+		</header>
+		
+		<footer class="page-bottom">
+	    <a class="footer-table left-table mui-active" href="sw.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling2-2.png"/></p>
+	        <p class="footer-name">失物招领</p>
+	    </a>
+	    <a class="footer-table mid-table" href="sz.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling1-1.png"/></p>
+	        <p class="footer-name">寻找失物</p>
+	    </a>
+	     <a class="footer-table right-table" href="wo.html">
+	        <p class="footer-icon-img"><img src="images/shiwuzhaoling3-1.png"/></p>
+	        <p class="footer-name">我</p>
+	    </a>
+	    
+	</footer>
+		
+		<div class="mui-content">
+		    <ul id="sw">
+		    	
+		    	
+		    	
+		    </ul>
+		
+		    
+		   	<!--<div class="list">
+		    	<a href="xiangqing.html">
+		    	<div class="list-left">
+		    		<img src="images/cat.jpg"/>
+		    		
+		    	</div>
+		    	
+		    	<div class="list-right">
+		    		<h3>校卡</h3>
+		    		<p>在教室到商圈的路上，请拾到的好心人归还，学号201777213。</p>
+		    		
+		    	</div>
+		    	
+		   	</div>
+		    	
+		    
+		</div>-->
+		
+		
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.ready(function(){
+				console.log("1111111111111111111111111111111111");
+				var requrl3=localStorage.getItem("requrl3");
+				var requrl4=localStorage.getItem("requrl4");
+				console.log(requrl3);
+				mui.ajax(requrl3,{
+						data:{
+							rnum:"15",
+	                		p:1	
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/x-www-form-urlencoded'},
+						success:function(data){
+							console.log(JSON.stringify(data));
+							var itembox = document.body.querySelector('#sw');
+							
+							for (var i=0;i<data.itemlist.length;i++) 
+							{
+								var li=document.createElement('li');
+								li.className ='list';
+								
+		            			
+		                		var lihtml="<div class='list-left'><img src='"+requrl4+data.itemlist[i].swpicture+"'/></div>";
+		                		lihtml+="<div  class='list-right'><h3>"+data.itemlist[i].swname+"</h3><p>"+data.itemlist[i].swdescribe+"</p></div>";
+		                    	
+		                		li.innerHTML=lihtml;
+		                		li.id=data.itemlist[i].id;
+		                		itembox.appendChild(li);//新纪录插到最前面	
+		                		
+								
+							}
+							
+						}
+				});	
+				mui("#sw").on("tap","li",function(){
+					var currentid=this.id;
+					mui.openWindow({
+				    	url:"xiangqing.html",
+				    	id:"xiangqing",
+				    	extras:{
+						   xqid:currentid
+						},
+						
+					});
+					
+				});
+			});
+		</script>
+	</body>
+	
+	
+	
+	
+
+</html>

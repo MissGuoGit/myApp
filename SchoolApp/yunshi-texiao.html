@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	*{
+    		margin: 0;
+    		padding: 0;
+    	}
+    	html body{
+    		width: 100%;
+    		height: 100%;
+    	}
+    	.mui-content{
+    		
+    	}
+    	@keyframes secd-texiao{
+    		0% {
+    			background-color: #d597ce;
+    			left: 0px;
+    		    top: 45px;
+    		    transform: rotate(0deg) scale(1);
+    		}
+			25% {background-color: #39375b;
+			    left: calc(100% - 105px);
+    		    top: 180px;
+    		    transform: rotate(360deg) scale(0.5);
+			    
+			    
+			    }
+			50% {background-color: #f5b0cb;
+			    left: 0px;
+    		    top: 400px;
+    		    transform: rotate(0deg) scale(1);
+			    }
+			75% {background-color: #39375b;
+			    
+			    }
+			100% {
+				background-color: #f5b0cb;
+				left: calc(100% - 50px);
+    		    top:600px;
+    			transform: rotate(720deg) scale(0);
+    			
+			}
+    	}
+    	.test-box{
+    		width:150px;
+    		height:150px;
+    		position: absolute;
+    		left: 0px;
+    		top: 45px;
+    		font-size: 25px;
+    		background-color:#745c97;
+    		color: white;
+    		text-align: center;
+    		line-height: 150px;
+    	}
+    	.after-box{
+    		/*animation-name:fir-texiao;*/
+    		animation-name:secd-texiao;
+    		animation-duration: 4s;
+    		/*animation-fill-mode: forwards;*/
+    		animation-timing-function: linear;/*匀速*/
+    	}
+    	
+			
+			header h1 {
+				color: orange!important;
+			}
+			
+			.mui-icon-left-nav {
+				color: orange;
+			}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">今日运势</h1>
+	</header>
+	<div class="mui-content">
+	    <div class="test-box" id="texiao">
+		测一测
+	    </div>
+	</div>
+	
+	
+	<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	document.getElementById("texiao").addEventListener("tap",function(){
+      	document.getElementById("texiao").className="test-box after-box";
+      		setTimeout(function(){
+			window.location.href="yunshi--xiangqing.html";
+//			把获取的参数传递到下一个页面
+//			mui.openWindow({
+//	    		url:"yunshi--xiangqing.html",
+//	    		extras:{
+//	    			luckynumber:lknum,
+//	    			luckycolor:lkcolo,
+//	    			moneydata:modata,
+//	    			lovedata:lovdata,
+//	    		}
+//	    	 })
+		    },4000);
+      	})	
+ 			
+				
+		
+			
+    </script>	
+</body>
+</html>
